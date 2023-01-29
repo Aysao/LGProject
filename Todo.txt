@@ -1,0 +1,16 @@
+- Ajout de la dependance 
+- Création d'une fenêtre 
+- Création du jeu de base en pensant a créer les espaces online 
+- création du serveur 
+- appel des serveur/clients
+
+
+
+Feature :
+ - SKIN
+ - Achivement avec skin ou argent en recompense
+ - Systeme économique 
+ - Achivement secret
+ - feature avancé avec plus de carte qu'initialement
+ - animation 
+ -
