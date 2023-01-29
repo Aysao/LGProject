@@ -1,0 +1,3 @@
+mvn exec:java
+
+java -jar target/werewolf-1.0.jar
