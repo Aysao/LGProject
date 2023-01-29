@@ -2,6 +2,8 @@ package ww.werewolf.Card;
 
 import javax.imageio.ImageIO;
 
+import ww.werewolf.Order;
+
 public abstract class Card {
     protected int _idcard;              //l'id de la carte (ex: villager = 0)
     protected String description;       //description de la carte et de son effets
@@ -9,6 +11,7 @@ public abstract class Card {
     protected ImageIO framework;        //cadre de la carte
     protected int win_condition;        //l'equipe a laquelle elle appartient (villageois 0, loup garou 1)
     protected int state;
+    protected Order order;
 
 
     public abstract int Effect();

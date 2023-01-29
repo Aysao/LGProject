@@ -14,3 +14,19 @@ Feature :
  - feature avancé avec plus de carte qu'initialement
  - animation 
  -
+
+
+
+ ordre : 
+    - voleur
+    - cupidon
+    //notification des amoureux
+    - voyante
+    - loup-garou 
+    - sorcière
+    - chasseur si chasseur meurt 
+    - election du capitaine le premier tour 
+    - vote 
+    - tour suivant
+    
+    

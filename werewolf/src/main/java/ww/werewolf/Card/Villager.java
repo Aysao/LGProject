@@ -1,5 +1,7 @@
 package ww.werewolf.Card;
 
+import ww.werewolf.Order;
+
 public class Villager extends Card{
 
 
@@ -11,6 +13,7 @@ public class Villager extends Card{
         this.framework = null;
         this.image = null;
         this.win_condition = 0;
+        this.order = Order.SIMPLE_VILLAGER;
     }
 
 

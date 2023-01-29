@@ -13,7 +13,7 @@ import ww.werewolf.Card.Card;
 public class Board {
     private HashMap<Integer,String> userMap;
     private HashMap<Integer,Card> cardMap;
-    private List<Integer> order;
+    private int mayorelection = 0;
     private List<Integer> playerAlive;
     private int time;                               //time = 1 => nuit time = 0 => jour
     private int nturn;
@@ -26,7 +26,6 @@ public class Board {
     public Board(HashMap<Integer, String> userMap, ImageIO background, List<Card> cardAvailable) {
         this.userMap = userMap;
         playerAlive = Arrays.asList(0,0,0,0);
-        order = new ArrayList<Integer>();
 
         for(int i = 1; i < userMap.size();i++)
         {
@@ -40,6 +39,7 @@ public class Board {
         this.time = 1;
         this.nturn = 0;
         this.background = background;
+
     }
 
     public int GameStart(){
@@ -47,7 +47,7 @@ public class Board {
 
         while(game_status == -1)
         {
-
+            //vote loup-garou
 
 
             game_status = whoWin();

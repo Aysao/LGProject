@@ -1,5 +1,7 @@
 package ww.werewolf.Card;
 
+import ww.werewolf.Order;
+
 public class Loupgarou extends Card{
 
 
@@ -12,6 +14,7 @@ public class Loupgarou extends Card{
         this.framework = null;
         this.image = null;
         this.win_condition = 1;
+        this.order = Order.LOUP_GAROU;
     }
 
     @Override
