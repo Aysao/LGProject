@@ -1,0 +1,10 @@
+{
+    "java.project.sourcePaths": [
+        "lib\\**\\lwjgl"
+    ],
+    "java.project.referencedLibraries": {
+        "include": [
+            "lib/**/*.jar"
+        ]
+    }
+}
