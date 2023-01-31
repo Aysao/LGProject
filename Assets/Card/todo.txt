@@ -9,3 +9,5 @@ chasseur
 soricère
 petite fille
 capitaine
+
+extensions :
