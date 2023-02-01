@@ -1,4 +1,0 @@
-# Created at 2023-01-29T18:38:30.023
-Boot Manifest-JAR contains absolute paths in classpath 'd:\Project\LGProject\werewolf\target\test-classes'
-Hint: <argLine>-Djdk.net.URLClassPath.disableClassPathURLCheck=true</argLine>
-
