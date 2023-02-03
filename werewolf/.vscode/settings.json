@@ -1,3 +1,16 @@
+
 {
-    "java.configuration.updateBuildConfiguration": "interactive"
+    "java.project.sourcePaths": [
+        "lib\\**\\lwjgl",
+        "lib\\lwjgl\\*"
+    ],
+    "java.project.referencedLibraries": {
+        "include": [
+            "lib/lwjgl/*/*.jar",
+            "lib/lwjgl/lwjgl-opengl/*.jar",
+            "lib/lwjgl/lwjgl-glfw/*.jar"
+        ]
+    },
+    "java.configuration.updateBuildConfiguration": "interactive",
 }
+

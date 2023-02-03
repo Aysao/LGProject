@@ -15,11 +15,8 @@
     <jacoco-maven-plugin.version>0.8.4</jacoco-maven-plugin.version>
     <maven-javadoc-plugin.version>3.0.0</maven-javadoc-plugin.version>
     <!-- JaCoCo thresholds. Increase gradually as you add tests. -->
-    <jacoco.unit-tests.limit.instruction-ratio>0%</jacoco.unit-tests.limit.instruction-ratio>
-    <jacoco.unit-tests.limit.branch-ratio>0%</jacoco.unit-tests.limit.branch-ratio>
-    <jacoco.unit-tests.limit.class-complexity>20</jacoco.unit-tests.limit.class-complexity>
-    <jacoco.unit-tests.limit.method-complexity>5</jacoco.unit-tests.limit.method-complexity>
     <lwjgl.version>3.3.1</lwjgl.version>
+    <joml.version>1.10.5</joml.version>
 	  <lwjgl.natives>natives-windows</lwjgl.natives>
   </properties>
 
@@ -36,14 +33,14 @@
   </dependencyManagement>
 
   <dependencies>
+
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-api</artifactId>
       <version>${junit.version}</version>
       <scope>test</scope>
     </dependency>
-
-    <dependency>
+	<dependency>
 		<groupId>org.lwjgl</groupId>
 		<artifactId>lwjgl</artifactId>
 	</dependency>
@@ -54,6 +51,10 @@
 	<dependency>
 		<groupId>org.lwjgl</groupId>
 		<artifactId>lwjgl-glfw</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.lwjgl</groupId>
+		<artifactId>lwjgl-nfd</artifactId>
 	</dependency>
 	<dependency>
 		<groupId>org.lwjgl</groupId>
@@ -84,6 +85,11 @@
 	</dependency>
 	<dependency>
 		<groupId>org.lwjgl</groupId>
+		<artifactId>lwjgl-nfd</artifactId>
+		<classifier>${lwjgl.natives}</classifier>
+	</dependency>
+	<dependency>
+		<groupId>org.lwjgl</groupId>
 		<artifactId>lwjgl-openal</artifactId>
 		<classifier>${lwjgl.natives}</classifier>
 	</dependency>
@@ -97,14 +103,13 @@
 		<artifactId>lwjgl-stb</artifactId>
 		<classifier>${lwjgl.natives}</classifier>
 	</dependency>
-
-    <dependency>
-      <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter-engine</artifactId>
-      <version>${junit.version}</version>
-      <scope>test</scope>
-    </dependency>
+		<dependency>
+		<groupId>org.joml</groupId>
+		<artifactId>joml</artifactId>
+		<version>${joml.version}</version>
+	</dependency>
   </dependencies>
+
   <build>
     <plugins>
       <plugin>
