@@ -6,3 +6,5 @@ ww\werewolf\UI\Window.class
 ww\werewolf\Card\Loupgarou.class
 ww\werewolf\Order.class
 ww\werewolf\Card\Card.class
+ww\werewolf\UI\CardUI.class
+ww\werewolf\Event\MouseListener.class
