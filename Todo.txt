@@ -1,5 +1,5 @@
-- Ajout de la dependance 
-- Création d'une fenêtre 
+- Création de chaque type de carte du jeux et leurs effets
+- fonctionnement d'un tour de jeux
 - Création du jeu de base en pensant a créer les espaces online 
 - création du serveur 
 - appel des serveur/clients
