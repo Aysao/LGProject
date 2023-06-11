@@ -1,15 +1,11 @@
 package ww.werewolf.UI;
 
 import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
-import static org.lwjgl.opengl.GL11.GL_QUADS;
 import static org.lwjgl.opengl.GL11.GL_PROJECTION;
 import static org.lwjgl.opengl.GL11.GL_MODELVIEW;
 import static org.lwjgl.opengl.GL11.GL_DEPTH_TEST;
 import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
 import static org.lwjgl.opengl.GL11.GL_BLEND;
-import static org.lwjgl.opengl.GL11.glBegin;
-import static org.lwjgl.opengl.GL11.glVertex2f;
-import static org.lwjgl.opengl.GL11.glEnd;
 import static org.lwjgl.opengl.GL11.glMatrixMode;
 import static org.lwjgl.opengl.GL11.glLoadIdentity;
 import static org.lwjgl.opengl.GL11.glOrtho;
@@ -53,6 +49,7 @@ import static org.lwjgl.system.MemoryUtil.*;
 import org.lwjgl.*;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.opengl.GL;
+import org.lwjgl.opengl.GLUtil;
 
 public class Window {
 
@@ -76,13 +73,13 @@ public class Window {
         this.width = 1920;
         this.height = 1080;
         this.title = "Werewolf";
-        this.c1 = new CardUI();
     }
 
     public void run() {
         System.out.println("Hello LWJGL " + Version.getVersion() + "!");
 
         init();
+        initGame();
         loop();
 
         glfwFreeCallbacks(glfwWindow);
@@ -142,6 +139,10 @@ public class Window {
             glClearColor(0.2f, 0.0f, 0.0f, 1.0f);
 
         }
-        ;
+    }
+
+    public void initGame(){
+        this.c1 = new CardUI();
+
     }
 }
