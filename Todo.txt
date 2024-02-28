@@ -3,7 +3,10 @@
 - Création du jeu de base en pensant a créer les espaces online 
 - création du serveur 
 - appel des serveur/clients
-
+- Créationde l'affichage écrans windows
+- création du rectangle carte 
+- création du shaders et du texturing 
+- Créer un set de carte de départ basé sur le nombre de joueur (impossible de lancer si tous les joueurs n'ont pas une carte)
 
 
 Feature :
