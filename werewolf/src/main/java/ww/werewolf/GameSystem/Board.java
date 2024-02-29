@@ -40,12 +40,6 @@ public class Board {
                 break;
             }
         }
-        /* 
-        this.time = 1;
-        this.background = background;
-
-        Turn turn = new Turn();
-        */
     }
 
     public void WerewolfWin(){

@@ -99,6 +99,15 @@ public class ListPlayer extends ArrayList<Player> {
         return res;
     }
 
+    public <T> ArrayList<Player> getAllPlayerFromRole(Class<T> clazz){
+        ArrayList<Player> res = new ArrayList();
+        for(Player player : this){
+            if(clazz.isInstance(player.getRoleCard())){
+                res.add(player);
+            }
+        }
+        return res;
+    }
     public HashMap<WinCondition, Integer> getAliveRoles() {
         return aliveRoles;
     }
