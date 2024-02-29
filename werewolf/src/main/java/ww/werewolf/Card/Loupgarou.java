@@ -2,6 +2,8 @@ package ww.werewolf.Card;
 
 import java.util.HashMap;
 
+import ww.werewolf.GameSystem.WinCondition;
+
 public class Loupgarou extends Card{
 
 
@@ -13,7 +15,7 @@ public class Loupgarou extends Card{
         this.description = "Le Loup-garou n'a aucun pouvoir particulier il doit seulement tuer tous les villageois la nuit tombé";
         this.frame = null;
         this.image = null;
-        this.win_condition = 1;
+        this.win_condition = WinCondition.LOUP_GAROU;
     }
 
     @Override

@@ -1,10 +1,13 @@
 package ww.werewolf.GameCycle;
 
+import java.util.Random;
+
 import javax.imageio.ImageIO;
 
 import ww.werewolf.GameSystem.AvailableCard;
 import ww.werewolf.GameSystem.ListPlayer;
 import ww.werewolf.GameSystem.Player;
+import ww.werewolf.GameSystem.WinCondition;
 
 public class Board {
     private ListPlayer inGamePlayers;
@@ -24,9 +27,19 @@ public class Board {
         for(Player player : this.inGamePlayers){
             player.setRoleCard(cardAvailable.pollLast());
         }
-        
         System.out.println(toString());
-        
+        players.initGamePlayer();
+
+        WinCondition winner = null;
+        for(int i = 0; i < players.size(); i++){
+            Random rand = new Random();
+            players.playerDied(players.get(rand.nextInt(players.getAlivePlayers().size())));
+            winner = players.getWinner();
+            if(winner != WinCondition.NONE){
+                System.out.println(winner.getWinMessage());
+                break;
+            }
+        }
         /* 
         this.time = 1;
         this.background = background;

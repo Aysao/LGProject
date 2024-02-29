@@ -2,6 +2,8 @@ package ww.werewolf.Card;
 
 import java.util.HashMap;
 
+import ww.werewolf.GameSystem.WinCondition;
+
 public class Villager extends Card{
 
 
@@ -12,7 +14,7 @@ public class Villager extends Card{
         this.description = "Le villageois n'a aucun pouvoir particulier il ne doit seulement ne pas se faire tuer";
         this.frame = null;
         this.image = null;
-        this.win_condition = 0;
+        this.win_condition = WinCondition.VILLAGER;
     }
 
 

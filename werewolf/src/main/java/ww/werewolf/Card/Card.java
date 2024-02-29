@@ -4,13 +4,15 @@ import java.util.HashMap;
 
 import javax.imageio.ImageIO;
 
+import ww.werewolf.GameSystem.WinCondition;
+
 
 public abstract class Card {
     protected int _idcard;              //l'id de la carte (ex: villager = 0)
     protected String description;       //description de la carte et de son effets
     protected ImageIO image;            //Image de la carte
     protected ImageIO frame;        //cadre de la carte
-    protected int win_condition;        //l'equipe a laquelle elle appartient (villageois 0, loup garou 1, lover 2)
+    protected WinCondition win_condition;        //l'equipe a laquelle elle appartient (villageois 0, loup garou 1, lover 2)
     protected int state;                //Mort = 0; Vivant = 1
 
     public abstract int Effect();
@@ -41,11 +43,11 @@ public abstract class Card {
     public void setFrame(ImageIO frame) {
         this.frame = frame;
     }
-    public int getWin_condition() {
+    public WinCondition getWin_condition() {
         return win_condition;
     }
 
-    public void setWin_condition(int win_condition) {
+    public void setWin_condition(WinCondition win_condition) {
         this.win_condition = win_condition;
     }
     public int getState() {

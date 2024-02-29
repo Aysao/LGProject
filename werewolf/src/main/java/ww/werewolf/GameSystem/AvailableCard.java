@@ -1,9 +1,7 @@
 package ww.werewolf.GameSystem;
 
 import java.lang.reflect.Constructor;
-import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.Random;
 
 import ww.werewolf.Card.Card;
 

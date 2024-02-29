@@ -5,6 +5,7 @@ import ww.werewolf.Card.Card;
 
 public class Player {
     private String uuid = null;
+    private String name = "";
     private Card roleCard = null;
     private String lover = "";
     private int state = 1;                  // 1 = alive ; 0 = dead
@@ -14,6 +15,13 @@ public class Player {
     {
         uuid = UUID.randomUUID().toString();
     }
+
+    public Player(String name)
+    {
+        this.name = name;
+        uuid = UUID.randomUUID().toString();
+    }
+
     public int getState() {
         return state;
     }

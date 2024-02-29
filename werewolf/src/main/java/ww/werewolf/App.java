@@ -11,13 +11,21 @@ import ww.werewolf.Card.Villager;
 public class App {
 
 	public static void main(String[] args) {
+		
 
+		/*
+		 * Création block Joueur
+		 */
 		ListPlayer players = new ListPlayer();
 		for(int i = 0; i < 10; i++)
 		{
 			Player p = new Player();
 			players.add(p);
 		}
+
+		/*
+		 * Création carte available
+		 */
 
 		AvailableCard cardAvailable = new AvailableCard();
 		try{
@@ -27,6 +35,10 @@ public class App {
 		catch(Exception e){
 			e.printStackTrace();
 		}
+
+		/*
+		 * Création du Board
+		 */
 		Board b = new Board(players, null, cardAvailable);
 		
 
