@@ -1,36 +1,80 @@
 package ww.werewolf;
 
-import ww.werewolf.GameCycle.Board;
 import ww.werewolf.GameSystem.AvailableCard;
+import ww.werewolf.GameSystem.Board;
 import ww.werewolf.GameSystem.ListPlayer;
 import ww.werewolf.GameSystem.Player;
+import ww.werewolf.Network.GameClient;
+import ww.werewolf.Network.GameNet;
+import ww.werewolf.Network.GameServer;
+import ww.werewolf.Card.WereWolf;
+import ww.werewolf.Card.Witch;
 
-import ww.werewolf.Card.Loupgarou;
+import java.util.Scanner;
+
+import com.esotericsoftware.kryonet.Client;
+import com.esotericsoftware.kryonet.Connection;
+import com.esotericsoftware.kryonet.Server;
+
+import ww.werewolf.Card.Cupidon;
 import ww.werewolf.Card.Villager;
 
 public class App {
-
+	private static Server server = null;
 	public static void main(String[] args) {
-		
+		ListPlayer players = new ListPlayer();
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("Serveur : 1, Client : 2");
+		String choice = scanner.nextLine();
 
 		/*
-		 * Création block Joueur
+		 * Initialisation GameServer
 		 */
-		ListPlayer players = new ListPlayer();
-		for(int i = 0; i < 10; i++)
-		{
-			Player p = new Player();
-			players.add(p);
+		if(choice.equals("1")){
+			App.server = new GameServer().getServer();
 		}
 
+		/*
+		 * Initialisation Client
+		 */
+		GameClient networkClient = new GameClient();
+		Client client = networkClient.getClient();
+		client.sendTCP("DoneInit");
+
+		/*
+		 * Mis en attente du serveur pour qu'il puisse récup tous les clients
+		 */
+
+		if(client.getID() == 1 && App.server != null){
+			System.out.println("Ready ?");
+			String test = scanner.nextLine();
+			
+			/*
+		 	 * Création block Joueur
+		 	 */
+
+			for(int i = 0; i < App.server.getConnections().length; i++){
+					Player p = new Player();
+					p.setClient(App.server.getConnections()[i].getID());
+					players.add(p);
+				}
+			
+			
+		}
+
+		
+		
 		/*
 		 * Création carte available
 		 */
 
 		AvailableCard cardAvailable = new AvailableCard();
 		try{
-			cardAvailable.addXCard(Loupgarou.class, 2);
-			cardAvailable.addXCard(Villager.class, 8);
+			cardAvailable.addXCard(WereWolf.class, 2);
+			cardAvailable.addXCard(Villager.class, 6);
+			cardAvailable.addXCard(Witch.class, 1);
+			cardAvailable.addXCard(Cupidon.class, 1);
+
 		}
 		catch(Exception e){
 			e.printStackTrace();
@@ -39,7 +83,7 @@ public class App {
 		/*
 		 * Création du Board
 		 */
-		Board b = new Board(players, null, cardAvailable);
+		Board b = new Board(players, null, cardAvailable, client);
 		
 
 		//Board b = new Board(user, null,cardAvailable);
@@ -47,5 +91,13 @@ public class App {
 		//Window w = Window.getWindow();
 		//w.run();
 	}
+	public static Server getServer() {
+		return server;
+	}
+	public static void setServer(Server server) {
+		App.server = server;
+	}
+
+	
 
 }

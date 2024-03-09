@@ -1,51 +1,80 @@
-package ww.werewolf.GameCycle;
+package ww.werewolf.GameSystem;
 
 import java.util.Random;
 
 import javax.imageio.ImageIO;
 
-import ww.werewolf.GameSystem.AvailableCard;
-import ww.werewolf.GameSystem.ListPlayer;
-import ww.werewolf.GameSystem.Player;
-import ww.werewolf.GameSystem.WinCondition;
+import com.esotericsoftware.kryonet.Client;
+import com.esotericsoftware.kryonet.Connection;
+
+import ww.werewolf.App;
+import ww.werewolf.Network.GameServer;
 
 public class Board {
-    private ListPlayer inGamePlayers;
+    public static ListPlayer inGamePlayers;
+    public static int wait = 0;
+    private GameServer server;
+    private Client client;
     private int time;                               //time = 1 => nuit time = 0 => jour
+    private int numberTurn;
     //message loup-garou avec ptite fille qui peux voir
     //message story
     private ImageIO background;
     //icone du menu pour option etc
 
 
-    public Board(ListPlayer players, ImageIO background, AvailableCard cardAvailable) {
-        this.inGamePlayers = new ListPlayer();
-        this.inGamePlayers.addAll(players);
-        System.out.println(this.inGamePlayers.toString());
-        this.inGamePlayers.mixPlayer();
-        System.out.println(this.inGamePlayers.toString());
-        for(Player player : this.inGamePlayers){
-            player.setRoleCard(cardAvailable.pollLast());
-        }
-        System.out.println(toString());
-        players.initGamePlayer();
+    public Board(ListPlayer players, ImageIO background, AvailableCard cardAvailable, Client c) {
+        this.client = c;
+        Board.inGamePlayers = new ListPlayer();
+        Board.inGamePlayers.addAll(players);
 
-        WinCondition winner = null;
-        for(int i = 0; i < players.size(); i++){
+        /*
+         * Configuration Serveur 
+         */
+        if(App.getServer() != null){
+            this.numberTurn = 0;
+            //System.out.println(Board.inGamePlayers.toString());
+            Board.inGamePlayers.mixPlayer();
+            //System.out.println(Board.inGamePlayers.toString());
+            for(Player player : Board.inGamePlayers){
+                player.setRoleCard(cardAvailable.pollLast());
+            }
+            Board.inGamePlayers.initGamePlayer();
+
+            App.getServer().sendToAllUDP(Board.inGamePlayers);
+
+            
+            turn();
+            
+        }
+
+        while (true) {
+            
+        }
+        /*
+         * Action Client
+         */
+        
+
+        
+    }
+    
+    public void turn(){
+        WinCondition winner = WinCondition.NONE;
+        while(winner == WinCondition.NONE){
             Random rand = new Random();
-            players.playerDied(players.get(rand.nextInt(players.getAlivePlayers().size())));
-            winner = players.getWinner();
+            Board.inGamePlayers.playerDied(Board.inGamePlayers.get(rand.nextInt(Board.inGamePlayers.getAlivePlayers().size())));
+            winner = Board.inGamePlayers.getWinner();
             if(winner != WinCondition.NONE){
+                App.getServer().sendToAllTCP(winner);
                 System.out.println(winner.getWinMessage());
-                break;
             }
         }
     }
 
-    public void WerewolfWin(){
-        
+    public String vote(){
+        return "";
     }
-
     public int getTime() {
         return time;
     }

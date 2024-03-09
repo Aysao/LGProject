@@ -1,8 +1,11 @@
 package ww.werewolf.GameSystem;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Random;
+
 
 public class ListPlayer extends ArrayList<Player> {
 
@@ -23,6 +26,15 @@ public class ListPlayer extends ArrayList<Player> {
                 aliveRoles.put(player.getRoleCard().getWin_condition(), 1);
             }
         }
+        Collections.sort(this,new Comparator<Player>() {
+
+            @Override
+            public int compare(Player o1, Player o2) {
+                return o1.getRoleCard().getNightOrder() - o2.getRoleCard().getNightOrder();
+            }
+            
+        });
+
         alivePlayers.addAll(this);
     }
 
@@ -116,5 +128,13 @@ public class ListPlayer extends ArrayList<Player> {
         return alivePlayers;
     }
 
+    public Player getPlayerFromConnection(int i){
+        for(Player p : this){
+            if(p.getClient() == i){
+                return p;
+            }
+        }
+        return null;
+    }
     
 }

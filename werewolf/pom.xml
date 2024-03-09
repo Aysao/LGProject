@@ -20,96 +20,8 @@
     <joml.version>1.10.5</joml.version>
 	  <lwjgl.natives>natives-windows</lwjgl.natives>
   </properties>
+  
 
-  <dependencyManagement>
-	  <dependencies>
-		  <dependency>
-        <groupId>org.lwjgl</groupId>
-        <artifactId>lwjgl-bom</artifactId>
-        <version>${lwjgl.version}</version>
-        <scope>import</scope>
-        <type>pom</type>
-		  </dependency>
-	  </dependencies>
-  </dependencyManagement>
-
-  <dependencies>
-
-    <dependency>
-      <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter-api</artifactId>
-      <version>${junit.version}</version>
-      <scope>test</scope>
-    </dependency>
-	<dependency>
-		<groupId>org.lwjgl</groupId>
-		<artifactId>lwjgl</artifactId>
-	</dependency>
-	<dependency>
-		<groupId>org.lwjgl</groupId>
-		<artifactId>lwjgl-assimp</artifactId>
-	</dependency>
-	<dependency>
-		<groupId>org.lwjgl</groupId>
-		<artifactId>lwjgl-glfw</artifactId>
-	</dependency>
-	<dependency>
-		<groupId>org.lwjgl</groupId>
-		<artifactId>lwjgl-nfd</artifactId>
-	</dependency>
-	<dependency>
-		<groupId>org.lwjgl</groupId>
-		<artifactId>lwjgl-openal</artifactId>
-	</dependency>
-	<dependency>
-		<groupId>org.lwjgl</groupId>
-		<artifactId>lwjgl-opengl</artifactId>
-	</dependency>
-	<dependency>
-		<groupId>org.lwjgl</groupId>
-		<artifactId>lwjgl-stb</artifactId>
-	</dependency>
-	<dependency>
-		<groupId>org.lwjgl</groupId>
-		<artifactId>lwjgl</artifactId>
-		<classifier>${lwjgl.natives}</classifier>
-	</dependency>
-	<dependency>
-		<groupId>org.lwjgl</groupId>
-		<artifactId>lwjgl-assimp</artifactId>
-		<classifier>${lwjgl.natives}</classifier>
-	</dependency>
-	<dependency>
-		<groupId>org.lwjgl</groupId>
-		<artifactId>lwjgl-glfw</artifactId>
-		<classifier>${lwjgl.natives}</classifier>
-	</dependency>
-	<dependency>
-		<groupId>org.lwjgl</groupId>
-		<artifactId>lwjgl-nfd</artifactId>
-		<classifier>${lwjgl.natives}</classifier>
-	</dependency>
-	<dependency>
-		<groupId>org.lwjgl</groupId>
-		<artifactId>lwjgl-openal</artifactId>
-		<classifier>${lwjgl.natives}</classifier>
-	</dependency>
-	<dependency>
-		<groupId>org.lwjgl</groupId>
-		<artifactId>lwjgl-opengl</artifactId>
-		<classifier>${lwjgl.natives}</classifier>
-	</dependency>
-	<dependency>
-		<groupId>org.lwjgl</groupId>
-		<artifactId>lwjgl-stb</artifactId>
-		<classifier>${lwjgl.natives}</classifier>
-	</dependency>
-		<dependency>
-		<groupId>org.joml</groupId>
-		<artifactId>joml</artifactId>
-		<version>${joml.version}</version>
-	</dependency>
-  </dependencies>
 
   <build>
     <plugins>
@@ -226,6 +138,112 @@
     </plugin>
     </plugins>
   </build>
+
+  <repositories>
+    <repository>
+      <id>tomp2p.net</id>
+      <url>http://tomp2p.net/dev/mvn/</url>
+    </repository>
+  </repositories>
+
+
+  <dependencyManagement>
+	  <dependencies>
+		  <dependency>
+        <groupId>org.lwjgl</groupId>
+        <artifactId>lwjgl-bom</artifactId>
+        <version>${lwjgl.version}</version>
+        <scope>import</scope>
+        <type>pom</type>
+		  </dependency>
+	  </dependencies>    
+  </dependencyManagement>
+
+ 
+  <dependencies>
+
+    <dependency>
+      <groupId>com.esotericsoftware</groupId>
+      <artifactId>kryonet</artifactId>
+      <version>2.22.0-RC1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <version>${junit.version}</version>
+      <scope>test</scope>
+    </dependency>
+	<dependency>
+		<groupId>org.lwjgl</groupId>
+		<artifactId>lwjgl</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.lwjgl</groupId>
+		<artifactId>lwjgl-assimp</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.lwjgl</groupId>
+		<artifactId>lwjgl-glfw</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.lwjgl</groupId>
+		<artifactId>lwjgl-nfd</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.lwjgl</groupId>
+		<artifactId>lwjgl-openal</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.lwjgl</groupId>
+		<artifactId>lwjgl-opengl</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.lwjgl</groupId>
+		<artifactId>lwjgl-stb</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.lwjgl</groupId>
+		<artifactId>lwjgl</artifactId>
+		<classifier>${lwjgl.natives}</classifier>
+	</dependency>
+	<dependency>
+		<groupId>org.lwjgl</groupId>
+		<artifactId>lwjgl-assimp</artifactId>
+		<classifier>${lwjgl.natives}</classifier>
+	</dependency>
+	<dependency>
+		<groupId>org.lwjgl</groupId>
+		<artifactId>lwjgl-glfw</artifactId>
+		<classifier>${lwjgl.natives}</classifier>
+	</dependency>
+	<dependency>
+		<groupId>org.lwjgl</groupId>
+		<artifactId>lwjgl-nfd</artifactId>
+		<classifier>${lwjgl.natives}</classifier>
+	</dependency>
+	<dependency>
+		<groupId>org.lwjgl</groupId>
+		<artifactId>lwjgl-openal</artifactId>
+		<classifier>${lwjgl.natives}</classifier>
+	</dependency>
+	<dependency>
+		<groupId>org.lwjgl</groupId>
+		<artifactId>lwjgl-opengl</artifactId>
+		<classifier>${lwjgl.natives}</classifier>
+	</dependency>
+	<dependency>
+		<groupId>org.lwjgl</groupId>
+		<artifactId>lwjgl-stb</artifactId>
+		<classifier>${lwjgl.natives}</classifier>
+	</dependency>
+		<dependency>
+		<groupId>org.joml</groupId>
+		<artifactId>joml</artifactId>
+		<version>${joml.version}</version>
+	</dependency>
+  
+  </dependencies>
+
   <reporting>
     <plugins>
       <plugin>

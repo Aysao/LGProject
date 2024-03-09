@@ -1,7 +1,5 @@
 package ww.werewolf.Card;
 
-import java.util.HashMap;
-
 import javax.imageio.ImageIO;
 
 import ww.werewolf.GameSystem.WinCondition;
@@ -10,14 +8,9 @@ import ww.werewolf.GameSystem.WinCondition;
 public abstract class Card {
     protected int _idcard;              //l'id de la carte (ex: villager = 0)
     protected String description;       //description de la carte et de son effets
-    protected ImageIO image;            //Image de la carte
-    protected ImageIO frame;        //cadre de la carte
     protected WinCondition win_condition;        //l'equipe a laquelle elle appartient (villageois 0, loup garou 1, lover 2)
     protected int state;                //Mort = 0; Vivant = 1
-
-    public abstract int Effect();
-
-
+    protected int NightOrder = 10000;
 
     public int get_idcard() {
         return _idcard;
@@ -30,18 +23,6 @@ public abstract class Card {
     }
     public void setDescription(String description) {
         this.description = description;
-    }
-    public ImageIO getImage() {
-        return image;
-    }
-    public void setImage(ImageIO image) {
-        this.image = image;
-    }
-    public ImageIO getFrame() {
-        return frame;
-    }
-    public void setFrame(ImageIO frame) {
-        this.frame = frame;
     }
     public WinCondition getWin_condition() {
         return win_condition;
@@ -56,7 +37,11 @@ public abstract class Card {
     public void setState(int state) {
         this.state = state;
     }
-    public abstract int action(HashMap<Card,Integer> cards);
-
+    public int getNightOrder() {
+        return NightOrder;
+    }
+    public void setNightOrder(int nightOrder) {
+        NightOrder = nightOrder;
+    }
 
 }
