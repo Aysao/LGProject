@@ -1,0 +1,7 @@
+- son d'ambiance (nuit / jour) 
+- son de mort par villageois
+- son de mort par loup-garou
+- son de potion
+- son de vote 
+- son de selection
+- music de fond 
