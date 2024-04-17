@@ -1,0 +1,3 @@
+- créer un bouton personnalisé (inactif - actif - mouseover)
+- créer un effet de carte (mouseover card - selected card - dead card )
+- background nuit/jour

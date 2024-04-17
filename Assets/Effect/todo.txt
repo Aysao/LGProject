@@ -1,0 +1,4 @@
+- effet de retour de carte
+- effet potion de vie et de mort 
+- effet mort par loup garou
+- effet mort par villageois

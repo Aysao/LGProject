@@ -10,4 +10,7 @@ soricère
 petite fille
 capitaine
 
+- faire des cadrans de carte
+- faire le dos de la carte
+
 extensions :
