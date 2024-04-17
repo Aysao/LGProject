@@ -3,7 +3,8 @@ package ww.werewolf.Network;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 
-import ww.werewolf.Card.WereWolf;
+import ww.werewolf.GameSystem.Board;
+
 
 public class ServerListener extends Listener {
 
@@ -26,6 +27,19 @@ public class ServerListener extends Listener {
     @Override
     public void received(Connection connection, Object object) {
         
+        if(object instanceof OnlineAction){
+            OnlineAction onlineAction = (OnlineAction) object;
+            if(onlineAction.getAction().equals("Voted") && Board.nbVoteWaited > 0){
+
+                if(onlineAction.getLinkObject() instanceof String){
+                    String receivingAction = (String) onlineAction.getLinkObject();
+                    Board.votedPlayer.add(receivingAction);
+                    Board.nbVoteWaited--; 
+                    if(Board.nbVoteWaited == 0)
+                        Board.waitingVote = false;
+                }
+            }
+        }
     }
     
 }

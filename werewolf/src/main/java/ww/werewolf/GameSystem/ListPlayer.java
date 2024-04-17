@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Random;
 
 
@@ -13,10 +14,12 @@ public class ListPlayer extends ArrayList<Player> {
 
     private HashMap<WinCondition,Integer> aliveRoles;
     private ArrayList<Player> alivePlayers;
+    private int maxNumberRolesAliveForWin = 1;
 
     public void initGamePlayer(){
         aliveRoles = new HashMap<>();
         alivePlayers = new ArrayList<>();
+
         for(Player player : this){
             if(aliveRoles.containsKey(player.getRoleCard().getWin_condition()))
             {
@@ -34,7 +37,6 @@ public class ListPlayer extends ArrayList<Player> {
             }
             
         });
-
         alivePlayers.addAll(this);
     }
 
@@ -60,27 +62,56 @@ public class ListPlayer extends ArrayList<Player> {
     }
 
     public WinCondition getWinner(){
-        if(alivePlayers.size() == 2 || aliveRoles.size() == 1)
+        if(alivePlayers.size() <= maxNumberRolesAliveForWin || aliveRoles.size() == 1)
         {
+
             /*
-             * Management of Lover Win
+             * Management of specialWinCondition
              */
-            if(alivePlayers.size() == 2){
-                ArrayList<Player> playerAlive = this.getaliveRoles();
-                if(playerAlive.get(0).getLover() == playerAlive.get(1).getUuid() &&
-                    playerAlive.get(1).getLover() == playerAlive.get(0).getUuid()){
-                        return WinCondition.LOVER;
-                    }
+
+            if(alivePlayers.size() <= maxNumberRolesAliveForWin){
+                WinCondition winner = updateMaxNumberRolesAliveForWin();
+                if(!winner.equals(WinCondition.NONE)){
+                    return winner;
+                }
             }
 
             /*
              * Management of other win
              */
+            
             return aliveRoles.keySet().stream().findFirst().get();
 
         }
         return WinCondition.NONE;
         
+    }
+
+    // à appeler pour chaque roles spécial
+    public WinCondition updateMaxNumberRolesAliveForWin(){
+        int max;
+        WinCondition winner = WinCondition.NONE;
+        for(WinCondition w : WinCondition.values()){
+            max = 0;
+            for(Player p : alivePlayers){
+                if(p.getSpecialCondition().containsKey(w)){
+                    max++;
+                }
+            }
+            if(maxNumberRolesAliveForWin < max)
+            {
+                maxNumberRolesAliveForWin = max;
+                winner = w;
+            }
+        }
+
+        if(maxNumberRolesAliveForWin == alivePlayers.size()){
+            return winner;
+        }
+        else{
+            return WinCondition.NONE;
+        }
+
     }
 
     public ArrayList<Player> getaliveRoles(){
@@ -112,7 +143,7 @@ public class ListPlayer extends ArrayList<Player> {
     }
 
     public <T> ArrayList<Player> getAllPlayerFromRole(Class<T> clazz){
-        ArrayList<Player> res = new ArrayList();
+        ArrayList<Player> res = new ArrayList<Player>();
         for(Player player : this){
             if(clazz.isInstance(player.getRoleCard())){
                 res.add(player);
@@ -131,6 +162,28 @@ public class ListPlayer extends ArrayList<Player> {
     public Player getPlayerFromConnection(int i){
         for(Player p : this){
             if(p.getClient() == i){
+                return p;
+            }
+        }
+        return null;
+    }
+
+    public List<Player> getPlayerFromSpecialWinCondition(WinCondition w){
+        List<Player> res = new ArrayList<>();
+
+        for(Player p : alivePlayers){
+            if(p.getSpecialCondition().containsKey(w)){
+                res.add(p);
+            }
+        }
+
+        return res;
+
+    }
+
+    public Player getPlayerFromUuid(String uuid){
+        for(Player p : this){
+            if(p.getUuid().equals(uuid)){
                 return p;
             }
         }

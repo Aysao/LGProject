@@ -21,7 +21,6 @@ import static org.lwjgl.glfw.GLFW.GLFW_KEY_ESCAPE;
 import static org.lwjgl.glfw.GLFW.glfwCreateWindow;
 import static org.lwjgl.glfw.GLFW.glfwDefaultWindowHints;
 import static org.lwjgl.glfw.GLFW.glfwGetWindowSize;
-import static org.lwjgl.glfw.GLFW.glfwGetFramebufferSize;
 import static org.lwjgl.glfw.GLFW.glfwDestroyWindow;
 import static org.lwjgl.glfw.GLFW.glfwInit;
 import static org.lwjgl.glfw.GLFW.glfwMakeContextCurrent;
@@ -40,16 +39,13 @@ import static org.lwjgl.opengl.GL11.glClear;
 import static org.lwjgl.opengl.GL11.glClearColor;
 import static org.lwjgl.system.MemoryUtil.NULL;
 
-import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 
-import static org.lwjgl.system.MemoryStack.*;
-import static org.lwjgl.system.MemoryUtil.*;
 
 import org.lwjgl.*;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.opengl.GL;
-import org.lwjgl.opengl.GLUtil;
+
 
 public class Window {
 
@@ -60,7 +56,6 @@ public class Window {
     private int width, height;
     private String title;
     private long glfwWindow;
-    private CardUI c1;
 
     public static Window getWindow() {
         if (window == null)
@@ -79,7 +74,6 @@ public class Window {
         System.out.println("Hello LWJGL " + Version.getVersion() + "!");
 
         init();
-        initGame();
         loop();
 
         glfwFreeCallbacks(glfwWindow);
@@ -132,17 +126,12 @@ public class Window {
             width = winw.get(0);
             height = winh.get(0);
 
-            c1.DrawCard(width, height);
+            //c1.DrawCard(width, height);
 
             glfwSwapBuffers(glfwWindow);
             glfwPollEvents();
             glClearColor(0.2f, 0.0f, 0.0f, 1.0f);
 
         }
-    }
-
-    public void initGame(){
-        this.c1 = new CardUI();
-
     }
 }

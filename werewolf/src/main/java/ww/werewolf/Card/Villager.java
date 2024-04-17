@@ -13,4 +13,10 @@ public class Villager extends Card{
         this.win_condition = WinCondition.VILLAGER;
     }
 
+    @Override
+    public void effects() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'effects'");
+    }
+
 }

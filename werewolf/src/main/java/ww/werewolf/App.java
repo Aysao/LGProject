@@ -5,7 +5,6 @@ import ww.werewolf.GameSystem.Board;
 import ww.werewolf.GameSystem.ListPlayer;
 import ww.werewolf.GameSystem.Player;
 import ww.werewolf.Network.GameClient;
-import ww.werewolf.Network.GameNet;
 import ww.werewolf.Network.GameServer;
 import ww.werewolf.Card.WereWolf;
 import ww.werewolf.Card.Witch;
@@ -13,11 +12,9 @@ import ww.werewolf.Card.Witch;
 import java.util.Scanner;
 
 import com.esotericsoftware.kryonet.Client;
-import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Server;
 
 import ww.werewolf.Card.Cupidon;
-import ww.werewolf.Card.Villager;
 
 public class App {
 	private static Server server = null;
@@ -70,8 +67,8 @@ public class App {
 
 		AvailableCard cardAvailable = new AvailableCard();
 		try{
-			cardAvailable.addXCard(WereWolf.class, 2);
-			cardAvailable.addXCard(Villager.class, 6);
+			cardAvailable.addXCard(WereWolf.class, 5);
+			//cardAvailable.addXCard(Villager.class, 1);
 			cardAvailable.addXCard(Witch.class, 1);
 			cardAvailable.addXCard(Cupidon.class, 1);
 

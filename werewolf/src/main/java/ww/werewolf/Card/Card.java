@@ -1,6 +1,5 @@
 package ww.werewolf.Card;
 
-import javax.imageio.ImageIO;
 
 import ww.werewolf.GameSystem.WinCondition;
 
@@ -11,6 +10,9 @@ public abstract class Card {
     protected WinCondition win_condition;        //l'equipe a laquelle elle appartient (villageois 0, loup garou 1, lover 2)
     protected int state;                //Mort = 0; Vivant = 1
     protected int NightOrder = 10000;
+
+
+    public abstract void effects();
 
     public int get_idcard() {
         return _idcard;

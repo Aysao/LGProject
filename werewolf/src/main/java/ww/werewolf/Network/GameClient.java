@@ -25,7 +25,7 @@ public class GameClient extends GameNet {
         try {
             client = new Client();
             client.start();
-            client.connect(10000, "localhost", 54555, 54777); // Choisissez les ports appropriés pour votre application
+            client.connect(60000, "localhost", 54555, 54777); // Choisissez les ports appropriés pour votre application
 
             // Enregistrez vos classes personnalisées pour la sérialisation avec Kryo
             Kryo kryo = client.getKryo();
@@ -40,6 +40,7 @@ public class GameClient extends GameNet {
             kryo.register(ArrayList.class); 
             kryo.register(HashMap.class); 
             kryo.register(Connection.class); 
+            kryo.register(OnlineAction.class);
 
             client.addListener(new ClientListener()); // Définissez votre propre gestionnaire d'événements
 

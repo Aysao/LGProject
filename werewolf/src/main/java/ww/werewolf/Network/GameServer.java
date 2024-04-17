@@ -19,7 +19,7 @@ import ww.werewolf.GameSystem.Player;
 import ww.werewolf.GameSystem.WinCondition;
 
 public class GameServer extends GameNet {
-    public static Server server;
+    private Server server;
     public GameServer(){
         
         try {
@@ -40,6 +40,7 @@ public class GameServer extends GameNet {
             kryo.register(ArrayList.class); 
             kryo.register(HashMap.class); 
             kryo.register(Connection.class); 
+            kryo.register(OnlineAction.class); 
     
             server.addListener(new ServerListener()); // Définissez votre propre gestionnaire d'événements
     

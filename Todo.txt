@@ -1,25 +1,3 @@
-- Création de chaque type de carte du jeux et leurs effets
-- fonctionnement d'un tour de jeux
-- Création du jeu de base en pensant a créer les espaces online 
-- création du serveur 
-- appel des serveur/clients
-- Créationde l'affichage écrans windows
-- création du rectangle carte 
-- création du shaders et du texturing 
-- Créer un set de carte de départ basé sur le nombre de joueur (impossible de lancer si tous les joueurs n'ont pas une carte)
-
-
-Feature :
- - SKIN
- - Achivement avec skin ou argent en recompense
- - Systeme économique 
- - Achivement secret
- - feature avancé avec plus de carte qu'initialement
- - animation 
- -
-
-
-
  ordre : 
     - voleur
     - cupidon
@@ -33,3 +11,23 @@ Feature :
     - tour suivant
     
     
+
+Feature interne du jeu : 
+ - Créer une interface simple (necessaire pour la suite du code 'online')
+   - 
+   - Mappage des onlineActions sur un bouton d'envoie pour gérer de façon asynchrone l'envoie au serveur
+ - Création des effets de chaque carte
+ - gérer l'online en fonction des effets de carte
+ - organiser les carte de façon a ce que chaque joueurs apparaisse sur l'écrans
+ - permettre le clique sur un joueur pour automatiquement le selectionné puis valider avec un bouton pour envoyer au serveur
+ - gérer un tour de jeu entier
+ - créer un menu
+ - créer un hub pour la connection des joueurs avant le debut de partie
+ - créer un menu permettant la selection des cartes 
+ - créer un menu d'option graphique et audio
+
+Feature supplémentaire : 
+ - organiser un systeme monétaire interne
+ - permettre l'application de skin 
+ - permettre l'achat de skin via création d'un ecran market 
+ - Challenge et Achivement

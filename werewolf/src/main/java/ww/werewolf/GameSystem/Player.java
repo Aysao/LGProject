@@ -1,19 +1,20 @@
 package ww.werewolf.GameSystem;
 
+import java.util.HashMap;
 import java.util.UUID;
 import ww.werewolf.Card.Card;
-import com.esotericsoftware.kryonet.Connection;
 
 public class Player {
     private String uuid = null;
     private String name = "";
     private Card roleCard = null;
-    private String lover = "";
     private int state = 1;         // 1 = alive ; 0 = dead
     private int idConnection = -1;
+    private HashMap<WinCondition,String> specialCondition;
     public Player()
     {
         uuid = UUID.randomUUID().toString();
+        specialCondition = new HashMap<>();
     }
 
     public Player(String name)
@@ -39,12 +40,6 @@ public class Player {
     public void setRoleCard(Card roleCard) {
         this.roleCard = roleCard;
     }
-    public String getLover() {
-        return lover;
-    }
-    public void setLover(String lover) {
-        this.lover = lover;
-    }
 
     public void setUuid(String uuid) {
         this.uuid = uuid;
@@ -66,5 +61,22 @@ public class Player {
         this.idConnection = client;
     }
 
+    public int getIdConnection() {
+        return idConnection;
+    }
+
+    public void setIdConnection(int idConnection) {
+        this.idConnection = idConnection;
+    }
+
+    public HashMap<WinCondition, String> getSpecialCondition() {
+        return specialCondition;
+    }
+
+    public void setSpecialCondition(HashMap<WinCondition, String> specialCondition) {
+        this.specialCondition = specialCondition;
+    }
+
+    
     
 }
