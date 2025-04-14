@@ -26,8 +26,13 @@ Feature interne du jeu :
  - créer un menu permettant la selection des cartes 
  - créer un menu d'option graphique et audio
 
+
 Feature supplémentaire : 
  - organiser un systeme monétaire interne
  - permettre l'application de skin 
  - permettre l'achat de skin via création d'un ecran market 
  - Challenge et Achivement
+
+ Amélioration technique : 
+ - revoir OpenGl sur certains aspect 
+ - Création de composant regroupant les valeur offset postion etc ... 
