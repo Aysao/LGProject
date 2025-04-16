@@ -2,5 +2,8 @@ package ww.werewolf.Enum;
 
 public enum GameState {
     MENU,
-    GAME
+    GAME,
+    SERVER,
+    HOST,
+    OPTION
 }

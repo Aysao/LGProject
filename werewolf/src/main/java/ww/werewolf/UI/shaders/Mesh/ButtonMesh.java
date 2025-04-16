@@ -1,4 +1,4 @@
-package ww.werewolf.UI.shaders;
+package ww.werewolf.UI.shaders.Mesh;
 
 import org.joml.Vector2f;
 import org.joml.Vector3f;
@@ -11,6 +11,7 @@ import static org.lwjgl.opengl.GL30.glBindVertexArray;
 import org.lwjgl.opengl.GL33;
 
 import ww.werewolf.UI.Simple2DShader;
+
 
 public class ButtonMesh extends Mesh {
     private float[] vertices;
@@ -33,7 +34,6 @@ public class ButtonMesh extends Mesh {
         init(vertices, indices);
     }
     public void drawButton(Simple2DShader shader, Vector2f offset, Vector2f size, Vector3f color) {
-        System.out.println("Drawing at offset: " + offset + ", size: " + size);
         shader.setUniform("color", color);
     
         glBindVertexArray(vao);

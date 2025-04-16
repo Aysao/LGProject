@@ -1,5 +1,6 @@
 package ww.werewolf;
 
+import java.nio.DoubleBuffer;
 import java.nio.IntBuffer;
 import java.util.Scanner;
 
@@ -11,6 +12,8 @@ import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
 import static org.lwjgl.glfw.GLFW.GLFW_FALSE;
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_ESCAPE;
 import static org.lwjgl.glfw.GLFW.GLFW_MAXIMIZED;
+import static org.lwjgl.glfw.GLFW.GLFW_MOUSE_BUTTON_LEFT;
+import static org.lwjgl.glfw.GLFW.GLFW_PRESS;
 import static org.lwjgl.glfw.GLFW.GLFW_RELEASE;
 import static org.lwjgl.glfw.GLFW.GLFW_RESIZABLE;
 import static org.lwjgl.glfw.GLFW.GLFW_TRUE;
@@ -18,6 +21,8 @@ import static org.lwjgl.glfw.GLFW.GLFW_VISIBLE;
 import static org.lwjgl.glfw.GLFW.glfwCreateWindow;
 import static org.lwjgl.glfw.GLFW.glfwDefaultWindowHints;
 import static org.lwjgl.glfw.GLFW.glfwDestroyWindow;
+import static org.lwjgl.glfw.GLFW.glfwGetCursorPos;
+import static org.lwjgl.glfw.GLFW.glfwGetMouseButton;
 import static org.lwjgl.glfw.GLFW.glfwGetWindowSize;
 import static org.lwjgl.glfw.GLFW.glfwInit;
 import static org.lwjgl.glfw.GLFW.glfwMakeContextCurrent;
@@ -62,14 +67,18 @@ import ww.werewolf.GameSystem.ListPlayer;
 import ww.werewolf.GameSystem.Player;
 import ww.werewolf.Network.GameClient;
 import ww.werewolf.Network.GameServer;
+import ww.werewolf.UI.Component.UIButton;
 import ww.werewolf.UI.Simple2DShader;
-import ww.werewolf.UI.shaders.ButtonMesh;
+import ww.werewolf.UI.shaders.Mesh.ButtonMesh;
 
 public class App {
 	private static Server server = null;
 
 	private IntBuffer winw = BufferUtils.createIntBuffer(4);
     private IntBuffer winh = BufferUtils.createIntBuffer(4);
+
+	private final DoubleBuffer mouseXBuf = BufferUtils.createDoubleBuffer(1);
+	private final DoubleBuffer mouseYBuf = BufferUtils.createDoubleBuffer(1);
 
     private int width, height;
     private String title;
@@ -78,7 +87,7 @@ public class App {
     private Simple2DShader shader;
 	private GameState gameState = GameState.MENU;
 
-
+	private UIButton[] buttonMenu;
 	private ButtonMesh buttonMesh; // Mesh du bouton 
 	
 
@@ -228,7 +237,17 @@ public class App {
                 "werewolf\\src\\main\\java\\ww\\werewolf\\UI\\shaders\\FragmentCard.fs");
 
 		buttonMesh = new ButtonMesh();
+		
+		initMenu();
     }
+
+	public void initMenu(){
+		buttonMenu = new UIButton[4];
+		buttonMenu[0] = new UIButton(new Vector2f(150, 200), new Vector2f(300, 60), new Vector3f(0.3f, 0.6f, 1.0f), () -> gameState = GameState.SERVER);
+		buttonMenu[1] = new UIButton(new Vector2f(150, 300), new Vector2f(300, 60), new Vector3f(0.0f, 1.0f, 0.3f), () -> System.out.println("Host"));
+		buttonMenu[2] = new UIButton(new Vector2f(150, 400), new Vector2f(300, 60), new Vector3f(0.3f, 0.6f, 0.3f), () -> System.out.println("Option"));
+		buttonMenu[3] = new UIButton(new Vector2f(150, 500), new Vector2f(300, 60), new Vector3f(1.0f, 0.3f, 0.3f), () -> glfwSetWindowShouldClose(glfwWindow, true));
+	}
 
 	public void loop() {
         
@@ -265,13 +284,19 @@ public class App {
 		glfwGetWindowSize(glfwWindow, winw, winh);
 		int w = winw.get(0);
 		int h = winh.get(0);
+
+		glfwGetCursorPos(glfwWindow, mouseXBuf, mouseYBuf);
+		double mx = mouseXBuf.get(0);
+		double my = mouseYBuf.get(0);
+		
+		boolean mousePressed = glfwGetMouseButton(glfwWindow, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS;
 	
 		shader.setUniform("screenSize", new Vector2f(w, h));
-		System.out.println("Window size: " + w + "x" + h);
 		// Dessiner les boutons avec couleur et position différentes
-		buttonMesh.drawButton(shader, new Vector2f(150, 200), new Vector2f(300, 60), new Vector3f(0.3f, 0.6f, 1.0f)); // Serveur
-		buttonMesh.drawButton(shader, new Vector2f(150, 300), new Vector2f(300, 60), new Vector3f(0.3f, 1.0f, 0.6f)); // Client
-		buttonMesh.drawButton(shader, new Vector2f(150, 400), new Vector2f(300, 60), new Vector3f(1.0f, 0.3f, 0.3f)); // Quitter
+		for (int i = 0; i < buttonMenu.length; i++) {
+			buttonMenu[i].draw(shader, buttonMesh);
+			buttonMenu[i].update(mx, my, mousePressed);
+		}
 	
 		// Unbind
 		glBindVertexArray(0);

@@ -1,4 +1,4 @@
-package ww.werewolf.UI.shaders;
+package ww.werewolf.UI.shaders.Mesh;
 
 import static org.lwjgl.opengl.GL11.GL_FLOAT;
 import static org.lwjgl.opengl.GL11.GL_TRIANGLES;
