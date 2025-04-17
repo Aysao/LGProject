@@ -69,7 +69,8 @@ import ww.werewolf.Network.GameClient;
 import ww.werewolf.Network.GameServer;
 import ww.werewolf.UI.Component.UIButton;
 import ww.werewolf.UI.Simple2DShader;
-import ww.werewolf.UI.shaders.Mesh.ButtonMesh;
+import ww.werewolf.UI.shaders.Mesh.BoxMesh;
+import ww.werewolf.UI.shaders.Texture.TextureManager;
 
 public class App {
 	private static Server server = null;
@@ -85,10 +86,11 @@ public class App {
     private long glfwWindow;
 
     private Simple2DShader shader;
+	private TextureManager textureManager;
 	private GameState gameState = GameState.MENU;
 
 	private UIButton[] buttonMenu;
-	private ButtonMesh buttonMesh; // Mesh du bouton 
+	private BoxMesh buttonMesh; // Mesh du bouton 
 	
 
 	public static void main(String[] args) {
@@ -236,10 +238,19 @@ public class App {
                 "werewolf\\src\\main\\java\\ww\\werewolf\\UI\\shaders\\VertexCard.vs", 
                 "werewolf\\src\\main\\java\\ww\\werewolf\\UI\\shaders\\FragmentCard.fs");
 
-		buttonMesh = new ButtonMesh();
+		initTexture();
+
+		buttonMesh = new BoxMesh();
 		
 		initMenu();
     }
+
+	public void initTexture(){
+		textureManager = new TextureManager();
+		textureManager.getTexture("./Assets/font/font_spritesheet.png");
+
+		System.out.println("End of Init intial Texture");
+	}
 
 	public void initMenu(){
 		buttonMenu = new UIButton[4];
@@ -259,7 +270,6 @@ public class App {
 	
 			if (gameState == GameState.MENU) {
 				renderMenu();
-				//handleMenuInput();
 			} else if (gameState == GameState.GAME) {
 				//renderGame(); // pour plus tard
 			}
@@ -301,10 +311,5 @@ public class App {
 		// Unbind
 		glBindVertexArray(0);
 	}
-
-	private boolean inZone(int x, int y, int x1, int y1, int x2, int y2) {
-		return x >= x1 && x <= x2 && y >= y1 && y <= y2;
-	}
-
 
 }

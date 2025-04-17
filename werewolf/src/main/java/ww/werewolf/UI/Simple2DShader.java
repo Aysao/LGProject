@@ -98,6 +98,15 @@ public class Simple2DShader {
         }
     }
 
+    public void setUniform(String uniformName, int uniform1i) {
+        int uniformLocation = glGetUniformLocation(shaderProgramID, uniformName);
+        if (uniformLocation != -1) {
+            GL46.glUniform1i(uniformLocation, uniform1i);
+        } else {
+            System.err.println("Uniform introuvable : " + uniformName);
+        }
+    }
+
     public void setUniform(String uniformName, Vector2f color) {
         int uniformLocation = glGetUniformLocation(shaderProgramID, uniformName);
         if (uniformLocation != -1) {
@@ -111,6 +120,15 @@ public class Simple2DShader {
         int uniformLocation = glGetUniformLocation(shaderProgramID, uniformName);
         if (uniformLocation != -1) {
             GL46.glUniform3f(uniformLocation, color.x,color.y,color.z);
+        } else {
+            System.err.println("Uniform introuvable : " + uniformName);
+        }
+    }
+
+    public void setUniform(String uniformName, boolean textured) {
+        int uniformLocation = glGetUniformLocation(shaderProgramID, uniformName);
+        if (uniformLocation != -1) {
+            GL46.glUniform1i(uniformLocation, textured ? 1 : 0);
         } else {
             System.err.println("Uniform introuvable : " + uniformName);
         }

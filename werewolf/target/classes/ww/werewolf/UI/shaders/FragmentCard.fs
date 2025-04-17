@@ -1,9 +1,27 @@
 #version 330 core
 
+in vec2 TexCoords;    // Coordonnées de texture
+out vec4 FragColor;   // Couleur du fragment
+
+// Uniforme pour la texture
+uniform sampler2D texture1;
+
+// Uniforme pour la couleur
 uniform vec3 color;
 
-out vec4 FragColor;
+// Uniforme pour basculer entre texture et couleur
+uniform bool useTexture;
 
-void main() {
-    FragColor = vec4(color, 1.0);
+void main()
+{
+    if (useTexture)
+    {
+        // Si on utilise la texture, on récupère la couleur de la texture
+        FragColor = texture(texture1, TexCoords);
+    }
+    else
+    {
+        // Sinon, on utilise la couleur uniforme
+        FragColor = vec4(color,1.0f);
+    }
 }

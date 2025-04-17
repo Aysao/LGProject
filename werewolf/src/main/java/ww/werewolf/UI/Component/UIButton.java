@@ -4,7 +4,7 @@ import org.joml.Vector2f;
 import org.joml.Vector3f;
 
 import ww.werewolf.UI.Simple2DShader;
-import ww.werewolf.UI.shaders.Mesh.ButtonMesh;
+import ww.werewolf.UI.shaders.Mesh.BoxMesh;
 
 public class UIButton {
     private Vector2f offset;
@@ -19,8 +19,8 @@ public class UIButton {
         this.onClick = onClick;
     }
 
-    public void draw(Simple2DShader shader, ButtonMesh buttonMesh) {
-        buttonMesh.drawButton(shader, offset, size, color);
+    public void draw(Simple2DShader shader, BoxMesh buttonMesh) {
+        buttonMesh.drawNotTextured(shader, offset, size, color);
     }
 
     public void update(double mouseX, double mouseY, boolean mousePressed) {
