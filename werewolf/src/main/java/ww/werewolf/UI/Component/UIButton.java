@@ -19,7 +19,7 @@ public class UIButton {
         this.size = size;
         this.color = color;
         this.onClick = onClick;
-        this.textButtonLabel = new TextLabel(text, offset, 1.0f);
+        this.textButtonLabel = new TextLabel(text, offset,1.0f);
     }
 
     public void draw(Simple2DShader shader, BoxMesh buttonMesh, TextureManager textureManager) {

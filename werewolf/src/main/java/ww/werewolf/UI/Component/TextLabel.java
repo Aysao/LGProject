@@ -4,7 +4,6 @@ import org.joml.Vector2f;
 
 import ww.werewolf.UI.Simple2DShader;
 import ww.werewolf.UI.shaders.Mesh.Mesh;
-import ww.werewolf.UI.shaders.Texture.Texture;
 import ww.werewolf.UI.shaders.Texture.TextureManager;
 
 public class TextLabel {
@@ -18,7 +17,10 @@ public class TextLabel {
 
     public TextLabel(String text, Vector2f position, float scale) {
         this.text = text;
-        this.position = position;
+        int i = text.length();
+        int textWidth = (int) (glyphWidth * scale) * i;
+
+        this.position = new Vector2f(position.x - textWidth/2, position.y);
         this.scale = scale;
     }
 
@@ -45,9 +47,7 @@ public class TextLabel {
             Vector2f uvMax = new Vector2f((col + 1) * texW, (row + 1) * texH);
 
             Vector2f size = new Vector2f(glyphWidth * scale, glyphHeight * scale);
-            Texture fontAsset = textureManager.getTexture("./Assets/font/font_spritesheet.png");
-            fontAsset.bind(0);
-            fontAsset.sendToShader(0, shader, "tex0");
+            textureManager.bindTexture("./Assets/font/font_spritesheet.png",shader,"tex0");
             mesh.draw(shader, cursor, size, uvMin, uvMax);
 
             cursor.x += size.x;

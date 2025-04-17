@@ -255,7 +255,7 @@ public class App {
 
 	public void initTexture(){
 		textureManager = new TextureManager();
-		textureManager.getTexture("Assets\\font\\font_spritesheet.png");
+		textureManager.getTexture("./Assets/font/font_spritesheet.png");
 
 		System.out.println("End of Init intial Texture");
 	}
