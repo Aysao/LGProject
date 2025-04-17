@@ -5,22 +5,26 @@ import org.joml.Vector3f;
 
 import ww.werewolf.UI.Simple2DShader;
 import ww.werewolf.UI.shaders.Mesh.BoxMesh;
+import ww.werewolf.UI.shaders.Texture.TextureManager;
 
 public class UIButton {
     private Vector2f offset;
     private Vector2f size;
     private Vector3f color;
+    private TextLabel textButtonLabel;
     private Runnable onClick;
 
-    public UIButton(Vector2f offset, Vector2f size, Vector3f color, Runnable onClick) {
+    public UIButton(Vector2f offset, Vector2f size, Vector3f color, String text, Runnable onClick) {
         this.offset = offset;
         this.size = size;
         this.color = color;
         this.onClick = onClick;
+        this.textButtonLabel = new TextLabel(text, offset, 1.0f);
     }
 
-    public void draw(Simple2DShader shader, BoxMesh buttonMesh) {
+    public void draw(Simple2DShader shader, BoxMesh buttonMesh, TextureManager textureManager) {
         buttonMesh.drawNotTextured(shader, offset, size, color);
+        textButtonLabel.render(shader,buttonMesh, textureManager);
     }
 
     public void update(double mouseX, double mouseY, boolean mousePressed) {

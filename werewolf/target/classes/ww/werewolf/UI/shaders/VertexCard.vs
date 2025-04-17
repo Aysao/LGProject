@@ -9,7 +9,7 @@ uniform vec2 screenSize;
 
 uniform bool useTexture;
 
-out vec2 texCoord;
+out vec2 TexCoords;
 
 void main() {
   vec2 pixelPos = offset + in_position * size;
@@ -18,5 +18,5 @@ void main() {
   gl_Position = vec4(ndc, 0.0, 1.0);
 
   if(useTexture)
-    texCoord = mix(uvMin, uvMax, in_position);
+    TexCoords = mix(uvMin, uvMax, in_position + 0.5);
 }

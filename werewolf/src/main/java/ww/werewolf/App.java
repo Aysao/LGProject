@@ -43,7 +43,10 @@ import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
 import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
 import static org.lwjgl.opengl.GL11.GL_DEPTH_TEST;
 import static org.lwjgl.opengl.GL11.GL_MODELVIEW;
+import static org.lwjgl.opengl.GL11.GL_ONE_MINUS_SRC_ALPHA;
 import static org.lwjgl.opengl.GL11.GL_PROJECTION;
+import static org.lwjgl.opengl.GL11.GL_SRC_ALPHA;
+import static org.lwjgl.opengl.GL11.glBlendFunc;
 import static org.lwjgl.opengl.GL11.glClear;
 import static org.lwjgl.opengl.GL11.glClearColor;
 import static org.lwjgl.opengl.GL11.glDisable;
@@ -67,6 +70,7 @@ import ww.werewolf.GameSystem.ListPlayer;
 import ww.werewolf.GameSystem.Player;
 import ww.werewolf.Network.GameClient;
 import ww.werewolf.Network.GameServer;
+import ww.werewolf.UI.Component.TextLabel;
 import ww.werewolf.UI.Component.UIButton;
 import ww.werewolf.UI.Simple2DShader;
 import ww.werewolf.UI.shaders.Mesh.BoxMesh;
@@ -90,6 +94,7 @@ public class App {
 	private GameState gameState = GameState.MENU;
 
 	private UIButton[] buttonMenu;
+	private TextLabel[] textMenuLabel;
 	private BoxMesh buttonMesh; // Mesh du bouton 
 	
 
@@ -243,21 +248,24 @@ public class App {
 		buttonMesh = new BoxMesh();
 		
 		initMenu();
+
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     }
 
 	public void initTexture(){
 		textureManager = new TextureManager();
-		textureManager.getTexture("./Assets/font/font_spritesheet.png");
+		textureManager.getTexture("Assets\\font\\font_spritesheet.png");
 
 		System.out.println("End of Init intial Texture");
 	}
 
 	public void initMenu(){
 		buttonMenu = new UIButton[4];
-		buttonMenu[0] = new UIButton(new Vector2f(150, 200), new Vector2f(300, 60), new Vector3f(0.3f, 0.6f, 1.0f), () -> gameState = GameState.SERVER);
-		buttonMenu[1] = new UIButton(new Vector2f(150, 300), new Vector2f(300, 60), new Vector3f(0.0f, 1.0f, 0.3f), () -> System.out.println("Host"));
-		buttonMenu[2] = new UIButton(new Vector2f(150, 400), new Vector2f(300, 60), new Vector3f(0.3f, 0.6f, 0.3f), () -> System.out.println("Option"));
-		buttonMenu[3] = new UIButton(new Vector2f(150, 500), new Vector2f(300, 60), new Vector3f(1.0f, 0.3f, 0.3f), () -> glfwSetWindowShouldClose(glfwWindow, true));
+		buttonMenu[0] = new UIButton(new Vector2f(150, 200), new Vector2f(300, 60), new Vector3f(0.3f, 0.6f, 1.0f), "Serveur", () -> gameState = GameState.SERVER);
+		buttonMenu[1] = new UIButton(new Vector2f(150, 300), new Vector2f(300, 60), new Vector3f(0.0f, 1.0f, 0.3f), "Client", () -> System.out.println("Host"));
+		buttonMenu[2] = new UIButton(new Vector2f(150, 400), new Vector2f(300, 60), new Vector3f(0.3f, 0.6f, 0.3f), "Option", () -> System.out.println("Option"));
+		buttonMenu[3] = new UIButton(new Vector2f(150, 500), new Vector2f(300, 60), new Vector3f(1.0f, 0.3f, 0.3f), "Quitte", () -> glfwSetWindowShouldClose(glfwWindow, true));
 	}
 
 	public void loop() {
@@ -304,7 +312,7 @@ public class App {
 		shader.setUniform("screenSize", new Vector2f(w, h));
 		// Dessiner les boutons avec couleur et position différentes
 		for (int i = 0; i < buttonMenu.length; i++) {
-			buttonMenu[i].draw(shader, buttonMesh);
+			buttonMenu[i].draw(shader, buttonMesh, textureManager);
 			buttonMenu[i].update(mx, my, mousePressed);
 		}
 	
