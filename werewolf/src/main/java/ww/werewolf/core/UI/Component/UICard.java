@@ -3,7 +3,7 @@ package ww.werewolf.core.UI.Component;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 
-import ww.werewolf.core.UI.Simple2DShader;
+import ww.werewolf.core.UI.shaders.Shader2D;
 import ww.werewolf.core.UI.shaders.Mesh.BoxMesh;
 import ww.werewolf.core.UI.shaders.Texture.TextureManager;
 
@@ -22,7 +22,7 @@ public class UICard {
         this.textButtonLabel = new TextLabel(text, offset,1.0f);
     }
 
-    public void draw(Simple2DShader shader, BoxMesh buttonMesh, TextureManager textureManager) {
+    public void draw(Shader2D shader, BoxMesh buttonMesh, TextureManager textureManager) {
         buttonMesh.drawNotTextured(shader, offset, size, color);
         textButtonLabel.render(shader,buttonMesh, textureManager);
     }

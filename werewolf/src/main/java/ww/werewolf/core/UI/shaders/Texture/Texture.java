@@ -23,7 +23,7 @@ import static org.lwjgl.opengl.GL30.glGenerateMipmap;
 import org.lwjgl.stb.STBImage;
 import org.lwjgl.system.MemoryStack;
 
-import ww.werewolf.core.UI.Simple2DShader;
+import ww.werewolf.core.UI.shaders.Shader2D;
 
 public class Texture {
     private final int textureID;
@@ -70,7 +70,7 @@ public class Texture {
         glBindTexture(GL_TEXTURE_2D, textureID);
     }
 
-    public void sendToShader(int textureUnit, Simple2DShader shader, String uniformName) {
+    public void sendToShader(int textureUnit, Shader2D shader, String uniformName) {
         // Active l'unité de texture
         bind(textureUnit);
 

@@ -1,5 +1,7 @@
 package ww.werewolf.common.card;
 
+import java.util.ArrayList;
+
 import ww.werewolf.common.event.Phase;
 import ww.werewolf.common.event.PlayerEvent;
 
@@ -17,6 +19,6 @@ public interface Card {
 
     public void onPlayerEvent(PlayerEvent playerEvent);
 
-    public Group getGroupPlayer();
+    public ArrayList<Group> getGroupPlayer();
     
 }

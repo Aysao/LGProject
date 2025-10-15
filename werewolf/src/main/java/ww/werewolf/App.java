@@ -64,8 +64,8 @@ import ww.werewolf.Network.GameClient;
 import ww.werewolf.Network.GameServer;
 import ww.werewolf.core.UI.Component.TextLabel;
 import ww.werewolf.core.UI.Component.UIButton;
-import ww.werewolf.core.UI.Simple2DShader;
 import ww.werewolf.core.UI.shaders.Mesh.BoxMesh;
+import ww.werewolf.core.UI.shaders.Shader2D;
 import ww.werewolf.core.UI.shaders.Texture.TextureManager;
 import ww.werewolf.core.enumCore.GameState;
 import ww.werewolf.core.game.Player;
@@ -86,7 +86,7 @@ public class App {
     private int width, height;
     private long glfwWindow;
 
-    private Simple2DShader shader;
+    private Shader2D shader;
 	private TextureManager textureManager;
 	private GameState gameState = GameState.MENU;
 
@@ -218,9 +218,9 @@ public class App {
         glMatrixMode(GL_MODELVIEW);
         glDisable(GL_DEPTH_TEST);
 
-        shader = new Simple2DShader(
-                "werewolf\\src\\main\\java\\ww\\werewolf\\core\\UI\\shaders\\VertexCard.vs", 
-                "werewolf\\src\\main\\java\\ww\\werewolf\\core\\UI\\shaders\\FragmentCard.fs");
+        shader = new Shader2D(
+                "werewolf\\src\\main\\java\\ww\\werewolf\\core\\UI\\shaders\\ShaderVertexCard.vs", 
+                "werewolf\\src\\main\\java\\ww\\werewolf\\core\\UI\\shaders\\ShaderFragmentCard.fs");
 
 		initTexture();
 

@@ -6,4 +6,6 @@ public interface CardManager {
 
     public ArrayList<Card> getAvailableCards();
 
+    public void initiateAvailableCards();
+
 }

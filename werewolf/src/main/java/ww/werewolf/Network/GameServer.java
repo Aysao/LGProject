@@ -9,8 +9,8 @@ import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Server;
 
-import ww.werewolf.core.card.Villager;
-import ww.werewolf.core.card.WereWolf;
+import ww.werewolf.core.card.role.Villager;
+import ww.werewolf.core.card.role.WereWolf;
 import ww.werewolf.core.game.Player;
 
 public class GameServer extends GameNet {

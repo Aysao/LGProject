@@ -2,8 +2,8 @@ package ww.werewolf.core.UI.Component;
 
 import org.joml.Vector2f;
 
-import ww.werewolf.core.UI.Simple2DShader;
 import ww.werewolf.core.UI.shaders.Mesh.Mesh;
+import ww.werewolf.core.UI.shaders.Shader2D;
 import ww.werewolf.core.UI.shaders.Texture.TextureManager;
 
 public class TextLabel {
@@ -24,7 +24,7 @@ public class TextLabel {
         this.scale = scale;
     }
 
-    public void render(Simple2DShader shader, Mesh mesh, TextureManager textureManager) {
+    public void render(Shader2D shader, Mesh mesh, TextureManager textureManager) {
         Vector2f cursor = new Vector2f(position);
 
         for (int i = 0; i < text.length(); i++) {

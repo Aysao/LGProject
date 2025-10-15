@@ -1,4 +1,4 @@
-package ww.werewolf.core.UI;
+package ww.werewolf.core.UI.shaders;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -28,11 +28,11 @@ import static org.lwjgl.opengl.GL20.glShaderSource;
 import static org.lwjgl.opengl.GL20.glUseProgram;
 import org.lwjgl.opengl.GL46;
 
-public class Simple2DShader {
+public class Shader2D {
 
     private int shaderProgramID;
 
-    public Simple2DShader(String vertexShaderPath, String fragmentShaderPath) {
+    public Shader2D(String vertexShaderPath, String fragmentShaderPath) {
         createShaderProgram(vertexShaderPath, fragmentShaderPath);
     }
 

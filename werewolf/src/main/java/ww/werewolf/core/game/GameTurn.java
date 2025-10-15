@@ -25,6 +25,8 @@ public class GameTurn {
                 currentPhase = phase;
                 PlayerList playersOfThisPhase = playerList.getPlayersAmongPhase(phase);
                 phase.execute(playersOfThisPhase);
+
+                
             }
         }
     }

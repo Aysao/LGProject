@@ -1,9 +1,19 @@
 package ww.werewolf.core.UI.shaders.Texture;
 
+import java.io.File;
+import java.nio.ByteBuffer;
+import java.nio.IntBuffer;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-import ww.werewolf.core.UI.Simple2DShader;
+import org.lwjgl.BufferUtils;
+import org.lwjgl.stb.STBImage;
+import org.lwjgl.system.MemoryStack;
+
+import ww.werewolf.core.UI.shaders.Shader2D;
+import ww.werewolf.core.enumCore.AssetsPath;
 
 public class TextureManager {
     private static final int MAX_TEXTURE_UNITS = 32; // Limite OpenGL standard
@@ -29,7 +39,7 @@ public class TextureManager {
     }
 
     // Lier une texture à une unité et l'envoyer au shader
-    public void bindTexture(String path, Simple2DShader shader, String uniformName) {
+    public void bindTexture(String path, Shader2D shader, String uniformName) {
         TextureSlot slot = textureSlots.get(path);
         if (slot == null) {
             throw new IllegalStateException("Texture non chargée: " + path);
@@ -63,6 +73,54 @@ public class TextureManager {
         return -1; // Pas d'unité libre
     }
 
+    private List<ImageData> getImageList(){
+        List<ImageData> result = new ArrayList<ImageData>();
+
+
+
+        try (MemoryStack stack = MemoryStack.stackPush()) {
+            IntBuffer width = stack.mallocInt(1);
+            IntBuffer height = stack.mallocInt(1);
+            IntBuffer channels = stack.mallocInt(1);
+
+            for(AssetsPath assetsEnum : AssetsPath.values()){
+
+                List<ImageData> imagesFromFolder = new ArrayList<>();
+                for(File f : getFilesFromFolder(assetsEnum.path)){
+                    // Charger l'image en mémoire
+                    ByteBuffer image = STBImage.stbi_load(f.getAbsolutePath(), width, height, channels, 4);
+                    if (image == null) {
+                        throw new IllegalStateException("Failed to load texture file: " + AssetsPath.FONTS.path);
+                    }
+                    ByteBuffer copy = BufferUtils.createByteBuffer(width.get(0) * height.get(0) * 4);
+                    copy.put(image);
+                    copy.flip(); 
+                    ImageData imageFromFile = new ImageData(copy, width.get(0), height.get(0), f.getName());
+                    imagesFromFolder.add(imageFromFile);
+                    STBImage.stbi_image_free(image);
+                }
+                ImageData assetImageData = new ImageData(null, 0, 0, assetsEnum.name());
+                assetImageData.mergeToGenerateAtlas(imagesFromFolder, assetsEnum.widthItem, assetsEnum.heightItem);
+                result.add(assetImageData);
+            }
+        }
+        return result;
+    }
+
+    private List<File> getFilesFromFolder(String folderPath){
+        File folderFile = new File(folderPath);
+        File[] files = folderFile.listFiles();
+        List<File> result = new ArrayList<>();
+        if(files != null){
+            for(File f : files){
+                if(f.isFile()){
+                    result.add(f);
+                }
+            }
+        }
+        return result;
+    }
+
     // Classe interne pour représenter une texture et son unité de texture
     private static class TextureSlot {
         final Texture texture;
@@ -73,4 +131,5 @@ public class TextureManager {
             this.unit = unit;
         }
     }
+
 }

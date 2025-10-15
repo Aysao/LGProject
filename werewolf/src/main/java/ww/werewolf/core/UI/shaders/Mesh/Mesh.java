@@ -22,7 +22,7 @@ import static org.lwjgl.opengl.GL30.glDeleteVertexArrays;
 import static org.lwjgl.opengl.GL30.glGenVertexArrays;
 import org.lwjgl.opengl.GL33;
 
-import ww.werewolf.core.UI.Simple2DShader;
+import ww.werewolf.core.UI.shaders.Shader2D;
 
 
 public abstract class Mesh {
@@ -58,7 +58,7 @@ public abstract class Mesh {
         glBindVertexArray(0);
     }
 
-    public void drawNotTextured(Simple2DShader shader, Vector2f offset, Vector2f size, Vector3f color) {
+    public void drawNotTextured(Shader2D shader, Vector2f offset, Vector2f size, Vector3f color) {
         shader.setUniform("useTexture", false);
         shader.setUniform("color", color);
     
@@ -83,7 +83,7 @@ public abstract class Mesh {
         glBindVertexArray(0);
     }
 
-    public void draw(Simple2DShader shader, Vector2f offset, Vector2f size, Vector2f uvMin, Vector2f uvMax) {
+    public void draw(Shader2D shader, Vector2f offset, Vector2f size, Vector2f uvMin, Vector2f uvMax) {
         shader.setUniform("useTexture", true);
         shader.setUniform("uvMin", uvMin);
         shader.setUniform("uvMax", uvMax);

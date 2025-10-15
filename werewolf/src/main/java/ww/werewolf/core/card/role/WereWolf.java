@@ -1,4 +1,6 @@
-package ww.werewolf.core.card;
+package ww.werewolf.core.card.role;
+
+import java.util.ArrayList;
 
 import ww.werewolf.common.card.Card;
 import ww.werewolf.common.card.Group;
@@ -38,7 +40,7 @@ public class WereWolf implements Card{
     }
 
     @Override
-    public Group getGroupPlayer() {
+    public ArrayList<Group> getGroupPlayer() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
