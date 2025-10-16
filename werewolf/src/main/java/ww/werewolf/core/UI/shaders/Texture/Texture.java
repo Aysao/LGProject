@@ -53,10 +53,13 @@ public class Texture {
         glActiveTexture(GL_TEXTURE0 + slot);  // Active l'unité de texture spécifiée
         glBindTexture(GL_TEXTURE_2D, this.textureID);
         shader.setUniform(textureImage.getName(), slot);
+
+        System.out.println("Texture : " + textureImage.getName() + " got bind to the slot " + slot + " from textureID " + this.textureID );
     }
 
     public void activate(Shader2D shader){
         glActiveTexture(GL_TEXTURE0 + this.textureSlot);
+        glBindTexture(GL_TEXTURE_2D, this.textureID);
         shader.setUniform("textureType", this.textureSlot);
     }
 

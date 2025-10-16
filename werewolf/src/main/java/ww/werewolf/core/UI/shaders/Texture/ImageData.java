@@ -51,6 +51,7 @@ public class ImageData {
         int index = 0;
 
         for(ImageData im : images){
+            System.out.println("Merging " + im.getName() + " to the atlas " + this.name);
             int col = index % widthCount;
             int row = index / widthCount;
             
