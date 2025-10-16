@@ -63,6 +63,7 @@ import com.esotericsoftware.kryonet.Server;
 import ww.werewolf.Network.GameClient;
 import ww.werewolf.Network.GameServer;
 import ww.werewolf.core.UI.Component.TextLabel;
+import ww.werewolf.core.UI.Component.UIBackground;
 import ww.werewolf.core.UI.Component.UIButton;
 import ww.werewolf.core.UI.shaders.Mesh.BoxMesh;
 import ww.werewolf.core.UI.shaders.Shader2D;
@@ -90,9 +91,10 @@ public class App {
 	private TextureManager textureManager;
 	private GameState gameState = GameState.MENU;
 
+	private UIBackground background;
 	private UIButton[] buttonMenu;
 	private TextLabel[] textMenuLabel;
-	private BoxMesh buttonMesh; // Mesh du bouton 
+	private BoxMesh boxMesh;
 	
 
 	public static void main(String[] args) {
@@ -226,7 +228,7 @@ public class App {
 
 		initTexture();
 
-		buttonMesh = new BoxMesh();
+		boxMesh = new BoxMesh();
 		
 		initMenu();
 
@@ -258,6 +260,8 @@ public class App {
 		buttonMenu[3] = new UIButton(new Vector2f(150, 500), new Vector2f(300, 60), new Vector3f(1.0f, 0.3f, 0.3f), "Quitte", () -> glfwSetWindowShouldClose(glfwWindow, true));
 		String versionText = this.title + ": " + this.versionGame;
 		versionLabel = new TextLabel(versionText, new Vector2f(w-128,h-32), 0.5f);
+		background = new UIBackground();
+
 	}
 
 	public void loop() {
@@ -296,8 +300,11 @@ public class App {
 		IntBuffer winw = BufferUtils.createIntBuffer(1);
 		IntBuffer winh = BufferUtils.createIntBuffer(1);
 		glfwGetWindowSize(glfwWindow, winw, winh);
+
 		int w = winw.get(0);
 		int h = winh.get(0);
+
+		background.renderBackground(this.shader, this.boxMesh, this.textureManager, w, h);
 
 		glfwGetCursorPos(glfwWindow, mouseXBuf, mouseYBuf);
 		double mx = mouseXBuf.get(0);
@@ -308,8 +315,8 @@ public class App {
 		shader.setUniform("screenSize", new Vector2f(w, h));
 		// Dessiner les boutons avec couleur et position différentes
 		for (int i = 0; i < buttonMenu.length; i++) {
-			versionLabel.render(shader, buttonMesh, textureManager);
-			buttonMenu[i].draw(shader, buttonMesh, textureManager);
+			versionLabel.render(shader, boxMesh, textureManager);
+			buttonMenu[i].draw(shader, boxMesh, textureManager);
 			buttonMenu[i].update(mx, my, mousePressed);
 		}
 	
