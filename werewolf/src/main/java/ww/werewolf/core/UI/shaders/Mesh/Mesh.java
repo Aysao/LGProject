@@ -92,7 +92,7 @@ public abstract class Mesh {
     
         // On s'assure d'activer les emplacements d'attributs
         GL20.glEnableVertexAttribArray(0); // in_position
-        glDisableVertexAttribArray(1); // désactive pour dire "valeur constante"
+        //GL20.glEnableVertexAttribArray(1); // désactive pour dire "valeur constante"
         glDisableVertexAttribArray(2);
         // Pas besoin d'activer 1 et 2 car on ne passe pas un buffer, mais une valeur constante
     

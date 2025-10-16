@@ -222,12 +222,15 @@ public class App {
                 "werewolf\\src\\main\\java\\ww\\werewolf\\core\\UI\\shaders\\ShaderVertexCard.vs", 
                 "werewolf\\src\\main\\java\\ww\\werewolf\\core\\UI\\shaders\\ShaderFragmentCard.fs");
 
+		shader.start();
+
 		initTexture();
 
 		buttonMesh = new BoxMesh();
 		
 		initMenu();
 
+		shader.end();
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     }

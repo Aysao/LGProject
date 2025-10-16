@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicLongArray;
 
 import org.lwjgl.BufferUtils;
 import org.lwjgl.stb.STBImage;
@@ -42,6 +43,7 @@ public class TextureManager {
     public void bindAllAtlases(Shader2D shader){
         for(AssetsPath atlas : AssetsPath.values()){
             if(textureMap.get(atlas.atlasName) != null){
+                System.out.println("Loading " + atlas.atlasName + " Texture on " + textureMap.get(atlas.atlasName).getTextureName() );
                 textureMap.get(atlas.atlasName).loadTexture(atlas.textureSlot, shader);
             }
         }
@@ -70,7 +72,8 @@ public class TextureManager {
                     if (image == null) {
                         throw new IllegalStateException("Failed to load texture file: " + f.getAbsolutePath());
                     }
-                    ByteBuffer copy = BufferUtils.createByteBuffer(width.get(0) * height.get(0) * channels.get(0));
+                    System.out.println("Caracterstique of this image : Width(" + width.get(0) + "), Height(" + height.get(0) + "), Channels(" + channels.get(0) + ")");
+                    ByteBuffer copy = BufferUtils.createByteBuffer(width.get(0) * height.get(0) * assetsEnum.channels);
                     copy.put(image);
                     copy.flip(); 
                     ImageData imageFromFile = new ImageData(copy, width.get(0), height.get(0), f.getName());

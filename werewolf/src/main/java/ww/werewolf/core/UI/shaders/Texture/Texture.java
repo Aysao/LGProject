@@ -32,6 +32,7 @@ public class Texture {
 
     public void loadTexture(int slot, Shader2D shader) {
 
+        glActiveTexture(GL_TEXTURE0 + slot);  // Active l'unité de texture spécifiée
         glBindTexture(GL_TEXTURE_2D, this.textureID);
         
 
@@ -52,6 +53,7 @@ public class Texture {
         this.textureSlot = slot;
         glActiveTexture(GL_TEXTURE0 + slot);  // Active l'unité de texture spécifiée
         glBindTexture(GL_TEXTURE_2D, this.textureID);
+        System.out.println(textureImage.getName());
         shader.setUniform(textureImage.getName(), slot);
 
         System.out.println("Texture : " + textureImage.getName() + " got bind to the slot " + slot + " from textureID " + this.textureID );
@@ -59,13 +61,7 @@ public class Texture {
 
     public void activate(Shader2D shader){
         glActiveTexture(GL_TEXTURE0 + this.textureSlot);
-        glBindTexture(GL_TEXTURE_2D, this.textureID);
         shader.setUniform("textureType", this.textureSlot);
-    }
-
-    public void sendToShader(Shader2D shader, String uniformName) {
-        // Passer l'unité de texture au shader en tant qu'uniforme
-        shader.setUniform(uniformName, textureSlot);
     }
 
     public void unbind() {
@@ -74,5 +70,9 @@ public class Texture {
 
     public void cleanUp() {
         glDeleteTextures(textureID);  // Supprimer la texture d'OpenGL
+    }
+
+    public String getTextureName(){
+        return textureImage.getName();
     }
 }
