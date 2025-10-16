@@ -33,6 +33,13 @@ Feature supplémentaire :
  - permettre l'achat de skin via création d'un ecran market 
  - Challenge et Achivement
 
- Amélioration technique : 
+Amélioration technique : 
+ - link les atlas au different niveau de glTexture
+ - rajouter le getAtlasList() pour la gestion des fonts depuis le textureManager
  - revoir OpenGl sur certains aspect 
  - Création de composant regroupant les valeur offset postion etc ... 
+
+
+Done : 
+  - # creation des atlas effectuer 
+  - # texturing fonctionnel petit bug à verifier sur l'active texture ? met seulement la police et jamais la carte alors que je choisi l'autre texture ... 

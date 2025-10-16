@@ -5,6 +5,7 @@ import org.joml.Vector2f;
 import ww.werewolf.core.UI.shaders.Mesh.Mesh;
 import ww.werewolf.core.UI.shaders.Shader2D;
 import ww.werewolf.core.UI.shaders.Texture.TextureManager;
+import ww.werewolf.core.enumCore.AssetsPath;
 
 public class TextLabel {
     private final String text;
@@ -47,7 +48,7 @@ public class TextLabel {
             Vector2f uvMax = new Vector2f((col + 1) * texW, (row + 1) * texH);
 
             Vector2f size = new Vector2f(glyphWidth * scale, glyphHeight * scale);
-            textureManager.bindTexture("./Assets/font/font_spritesheet.png",shader,"tex0");
+            textureManager.activeTexture(AssetsPath.FONTS.atlasName, shader);
             mesh.draw(shader, cursor, size, uvMin, uvMax);
 
             cursor.x += size.x;

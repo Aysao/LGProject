@@ -233,8 +233,9 @@ public class App {
     }
 
 	public void initTexture(){
-		textureManager = new TextureManager();
-		textureManager.getTexture("./Assets/font/font_spritesheet.png");
+		System.out.println("Initialisation of Shaders and Textures");
+
+		textureManager = new TextureManager(shader);
 
 		System.out.println("End of Init intial Texture");
 	}

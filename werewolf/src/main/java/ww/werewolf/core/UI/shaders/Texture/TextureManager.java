@@ -11,72 +11,52 @@ import java.util.Map;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.stb.STBImage;
 import org.lwjgl.system.MemoryStack;
+import org.w3c.dom.Text;
 
 import ww.werewolf.core.UI.shaders.Shader2D;
 import ww.werewolf.core.enumCore.AssetsPath;
 
 public class TextureManager {
-    private static final int MAX_TEXTURE_UNITS = 32; // Limite OpenGL standard
-    private final Map<String, TextureSlot> textureSlots = new HashMap<>();
-    private final boolean[] usedUnits = new boolean[MAX_TEXTURE_UNITS];
-
+    private final Map<String, Texture> textureMap = new HashMap<>();
     // Charge ou récupère la texture si elle est déjà en mémoire
-    public Texture getTexture(String path) {
-        if (textureSlots.containsKey(path)) {
-            return textureSlots.get(path).texture;
-        }
 
-        // Si la texture n'est pas encore chargée, on la charge et on lui assigne une unité libre
-        Texture texture = new Texture(path);
-        int unit = findFreeUnit();
-        if (unit == -1) {
-            throw new IllegalStateException("Aucune unité de texture libre !");
-        }
 
-        usedUnits[unit] = true;
-        textureSlots.put(path, new TextureSlot(texture, unit));
-        return texture;
+    public TextureManager(Shader2D shader){
+        loadTextures(shader);
     }
 
-    // Lier une texture à une unité et l'envoyer au shader
-    public void bindTexture(String path, Shader2D shader, String uniformName) {
-        TextureSlot slot = textureSlots.get(path);
-        if (slot == null) {
-            throw new IllegalStateException("Texture non chargée: " + path);
-        }
-        slot.texture.bind(slot.unit);
-        slot.texture.sendToShader(slot.unit, shader, uniformName);
+    public Texture getTexture(String name) {
+        return textureMap.get(name);
     }
 
-    // Libérer toutes les textures utilisées
-    public void unbindAll() {
-        for (TextureSlot slot : textureSlots.values()) {
-            slot.texture.unbind(); // Unbind de chaque texture sur l'unité active
+    private void loadTextures(Shader2D shader){
+        System.err.println("Start to load Textures");
+        List<ImageData> imageToTexture = getAtlasList();
+        System.out.println("All images are uploaded");
+        for(ImageData atlasImage : imageToTexture){
+            System.out.println("Mapping of " + atlasImage.getName() + "...");
+            textureMap.put(atlasImage.getName(), new Texture(atlasImage));
         }
+        System.out.println("All mapping done...");
+        bindAllAtlases(shader);
+        System.out.println("Textures mapped to shaders");
+
     }
 
-    // Libérer une texture spécifique et son unité
-    public void freeTexture(String path) {
-        TextureSlot slot = textureSlots.get(path);
-        if (slot != null) {
-            slot.texture.cleanUp();  // Appeler cleanup() pour détruire la texture dans OpenGL
-            usedUnits[slot.unit] = false; // Libérer l'unité de texture
-            textureSlots.remove(path); // Retirer la texture du gestionnaire
+    public void bindAllAtlases(Shader2D shader){
+        for(AssetsPath atlas : AssetsPath.values()){
+            if(textureMap.get(atlas.atlasName) != null){
+                textureMap.get(atlas.atlasName).loadTexture(atlas.textureSlot, shader);
+            }
         }
     }
 
-    // Trouver une unité de texture libre
-    private int findFreeUnit() {
-        for (int i = 0; i < MAX_TEXTURE_UNITS; i++) {
-            if (!usedUnits[i]) return i;
-        }
-        return -1; // Pas d'unité libre
+    public void activeTexture(String name, Shader2D shader){
+        textureMap.get(name).activate(shader);
     }
 
-    private List<ImageData> getImageList(){
+    private List<ImageData> getAtlasList(){
         List<ImageData> result = new ArrayList<ImageData>();
-
-
 
         try (MemoryStack stack = MemoryStack.stackPush()) {
             IntBuffer width = stack.mallocInt(1);
@@ -86,22 +66,34 @@ public class TextureManager {
             for(AssetsPath assetsEnum : AssetsPath.values()){
 
                 List<ImageData> imagesFromFolder = new ArrayList<>();
+                System.out.println("Starting reading folder");
                 for(File f : getFilesFromFolder(assetsEnum.path)){
+                    System.out.println("reading file " + f.getName());
                     // Charger l'image en mémoire
-                    ByteBuffer image = STBImage.stbi_load(f.getAbsolutePath(), width, height, channels, 4);
+                    System.out.println("channel de l'asset " + assetsEnum.channels);
+                    ByteBuffer image = STBImage.stbi_load(f.getAbsolutePath(), width, height, channels, assetsEnum.channels);
                     if (image == null) {
-                        throw new IllegalStateException("Failed to load texture file: " + AssetsPath.FONTS.path);
+                        throw new IllegalStateException("Failed to load texture file: " + f.getAbsolutePath());
                     }
-                    ByteBuffer copy = BufferUtils.createByteBuffer(width.get(0) * height.get(0) * 4);
+                    System.out.println("stbImage load image from : " + f.getName());
+                    ByteBuffer copy = BufferUtils.createByteBuffer(width.get(0) * height.get(0) * channels.get(0));
+                    System.out.println(channels.get(0));
                     copy.put(image);
                     copy.flip(); 
-                    ImageData imageFromFile = new ImageData(copy, width.get(0), height.get(0), f.getName());
+                    ImageData imageFromFile = new ImageData(copy, width.get(0), height.get(0), f.getName(), assetsEnum.channels);
+                    System.out.println("ByteBuffer copied");
                     imagesFromFolder.add(imageFromFile);
+                    image.position(0);
                     STBImage.stbi_image_free(image);
+                    System.out.println("stbi free");
                 }
-                ImageData assetImageData = new ImageData(null, 0, 0, assetsEnum.name());
-                assetImageData.mergeToGenerateAtlas(imagesFromFolder, assetsEnum.widthItem, assetsEnum.heightItem);
-                result.add(assetImageData);
+                if(imagesFromFolder.size() > 0 ){
+                    ImageData assetImageData = new ImageData(null, 0, 0, assetsEnum.atlasName, assetsEnum.channels);
+                    System.out.println("files ready to merge");
+                    assetImageData.mergeToGenerateAtlas(imagesFromFolder, assetsEnum.widthItem, assetsEnum.heightItem);
+                    System.out.println("files merged");
+                    result.add(assetImageData);
+                }
             }
         }
         return result;
@@ -120,16 +112,10 @@ public class TextureManager {
         }
         return result;
     }
-
-    // Classe interne pour représenter une texture et son unité de texture
-    private static class TextureSlot {
-        final Texture texture;
-        final int unit;
-
-        TextureSlot(Texture texture, int unit) {
-            this.texture = texture;
-            this.unit = unit;
+    public void cleanup() {
+        for (Texture tex : textureMap.values()) {
+            tex.cleanUp();
         }
+        textureMap.clear();
     }
-
 }
