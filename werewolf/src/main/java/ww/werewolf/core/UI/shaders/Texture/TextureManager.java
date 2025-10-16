@@ -11,7 +11,6 @@ import java.util.Map;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.stb.STBImage;
 import org.lwjgl.system.MemoryStack;
-import org.w3c.dom.Text;
 
 import ww.werewolf.core.UI.shaders.Shader2D;
 import ww.werewolf.core.enumCore.AssetsPath;
@@ -80,7 +79,7 @@ public class TextureManager {
                     System.out.println(channels.get(0));
                     copy.put(image);
                     copy.flip(); 
-                    ImageData imageFromFile = new ImageData(copy, width.get(0), height.get(0), f.getName(), assetsEnum.channels);
+                    ImageData imageFromFile = new ImageData(copy, width.get(0), height.get(0), f.getName());
                     System.out.println("ByteBuffer copied");
                     imagesFromFolder.add(imageFromFile);
                     image.position(0);
@@ -88,7 +87,7 @@ public class TextureManager {
                     System.out.println("stbi free");
                 }
                 if(imagesFromFolder.size() > 0 ){
-                    ImageData assetImageData = new ImageData(null, 0, 0, assetsEnum.atlasName, assetsEnum.channels);
+                    ImageData assetImageData = new ImageData(null, 0, 0, assetsEnum.atlasName);
                     System.out.println("files ready to merge");
                     assetImageData.mergeToGenerateAtlas(imagesFromFolder, assetsEnum.widthItem, assetsEnum.heightItem);
                     System.out.println("files merged");
