@@ -3,8 +3,8 @@ package ww.werewolf.core.UI.Component;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 
-import ww.werewolf.core.UI.shaders.Shader2D;
 import ww.werewolf.core.UI.shaders.Mesh.BoxMesh;
+import ww.werewolf.core.UI.shaders.Shader2D;
 import ww.werewolf.core.UI.shaders.Texture.TextureManager;
 
 public class UICard {

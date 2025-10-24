@@ -19,8 +19,8 @@ import static org.lwjgl.opengl.GL30.glBindVertexArray;
 
 import ww.werewolf.core.UI.Component.TextLabel;
 import ww.werewolf.core.UI.Component.UIButton;
-import ww.werewolf.core.UI.shaders.Shader2D;
 import ww.werewolf.core.UI.shaders.Mesh.BoxMesh;
+import ww.werewolf.core.UI.shaders.Shader2D;
 import ww.werewolf.core.UI.shaders.Texture.TextureManager;
 import ww.werewolf.core.enumCore.GameState;
 

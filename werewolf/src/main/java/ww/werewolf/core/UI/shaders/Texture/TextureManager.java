@@ -9,12 +9,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLongArray;
 
+import org.joml.Vector2f;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.stb.STBImage;
 import org.lwjgl.system.MemoryStack;
 
 import ww.werewolf.core.UI.shaders.Shader2D;
-import ww.werewolf.core.enumCore.AssetsPath;
+import ww.werewolf.core.UI.shaders.Texture.ImageData.PositionUV;
+import ww.werewolf.core.enumCore.Atlas;
 
 public class TextureManager {
     private final Map<String, Texture> textureMap = new HashMap<>();
@@ -41,7 +43,7 @@ public class TextureManager {
     }
 
     public void bindAllAtlases(Shader2D shader){
-        for(AssetsPath atlas : AssetsPath.values()){
+        for(Atlas atlas : Atlas.values()){
             if(textureMap.get(atlas.atlasName) != null){
                 System.out.println("Loading " + atlas.atlasName + " Texture on " + textureMap.get(atlas.atlasName).getTextureName() );
                 textureMap.get(atlas.atlasName).loadTexture(atlas.textureSlot, shader);
@@ -53,6 +55,10 @@ public class TextureManager {
         textureMap.get(name).activate(shader);
     }
 
+    public PositionUV getUVFromSelectedTexture(String textureName, String imageName){
+        return textureMap.get(textureName).getUVFromImageName(imageName);
+    }
+
     private List<ImageData> getAtlasList(){
         List<ImageData> result = new ArrayList<ImageData>();
 
@@ -61,7 +67,7 @@ public class TextureManager {
             IntBuffer height = stack.mallocInt(1);
             IntBuffer channels = stack.mallocInt(1);
 
-            for(AssetsPath assetsEnum : AssetsPath.values()){
+            for(Atlas assetsEnum : Atlas.values()){
 
                 List<ImageData> imagesFromFolder = new ArrayList<>();
                 System.out.println("Starting reading folder");

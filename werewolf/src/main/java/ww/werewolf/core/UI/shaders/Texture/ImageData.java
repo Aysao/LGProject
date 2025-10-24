@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.joml.Vector2f;
 import org.lwjgl.BufferUtils;
 
 public class ImageData {
@@ -70,10 +71,12 @@ public class ImageData {
                 }
             }
             index++;
-
-            uvMap.put(im.name, new PositionUV(offsetX, offsetY, widthSingleItem, heightSingleItem, width, height));
+            
+            int lastPoint = im.name.lastIndexOf(".");
+            uvMap.put(im.name.substring(0, lastPoint), new PositionUV(offsetX, offsetY, widthSingleItem, heightSingleItem, width, height));
         }
     }
+
 
     public ByteBuffer getPixels() {
         return pixels;
@@ -144,7 +147,16 @@ public class ImageData {
             this.uMax = (offsetX + imgWidth) / (float) atlasWidth;
             this.vMax = (offsetY + imgHeight) / (float) atlasHeight;
         }
+
+        public Vector2f getUVmin(){
+            return new Vector2f(this.uMin, this.vMin);
+        }
+
+        public Vector2f getUVMax(){
+            return new Vector2f(this.uMax, this.vMax);
+        }
     }
+
 }
 
 

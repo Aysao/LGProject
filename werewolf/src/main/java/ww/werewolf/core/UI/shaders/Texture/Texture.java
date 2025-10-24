@@ -19,6 +19,7 @@ import static org.lwjgl.opengl.GL13.glActiveTexture;
 import static org.lwjgl.opengl.GL30.glGenerateMipmap;
 
 import ww.werewolf.core.UI.shaders.Shader2D;
+import ww.werewolf.core.UI.shaders.Texture.ImageData.PositionUV;
 
 public class Texture {
     private final int textureID;
@@ -75,4 +76,10 @@ public class Texture {
     public String getTextureName(){
         return textureImage.getName();
     }
+
+    public PositionUV getUVFromImageName(String imageName){
+        return this.textureImage.getUvMap().get(imageName);
+    }
+
+
 }
